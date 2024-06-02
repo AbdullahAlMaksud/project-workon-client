@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'bangla': ['"Hind Siliguri"', 'sans-serif'],
+        'poppins': ['"Poppins"', 'sans-serif'],
+        'raleway': ['"Raleway"', 'sans-serif'],
+      }
+    },
   },
   plugins: [],
 }
