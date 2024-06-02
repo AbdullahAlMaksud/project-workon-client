@@ -5,9 +5,14 @@ import Footer from '../shared/Footer';
 const MainLayouts = () => {
     return (
         <div>
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
+            <div className='min-h-16'>
+                <Navbar />
+            </div>
+
+            <div className='min-h-[calc(100vh-304px)]'>
+                <Outlet />
+            </div>
+            <Footer />
         </div>
     );
 };
