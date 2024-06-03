@@ -6,6 +6,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import SignUp from "../authentication/SignUp";
 import SignIn from "../authentication/SignIn";
 import Display from "../Pages/Dashboard/Display";
+import Contact from "../Pages/Contact";
 
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       },
     ]
   },

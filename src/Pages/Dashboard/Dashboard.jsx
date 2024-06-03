@@ -4,10 +4,19 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { TbUsersGroup } from 'react-icons/tb';
 import { MdOutlinePayments, MdOutlineWorkHistory } from 'react-icons/md';
 import { GiProgression } from 'react-icons/gi';
+import { useState } from 'react';
+import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
+
+
 const Dashboard = () => {
     const role = 'employee'
     // const role = 'hr'
     // const role = 'admin'
+
+    const [isOpen, setIsOpen] = useState(false)
+    const handleOpen = () => {
+        setIsOpen(!isOpen)
+    }
 
     const employeeMenu = <>
         <li className='text-white w-full flex'>
@@ -67,24 +76,33 @@ const Dashboard = () => {
     </>
 
     return (
-        <div className='flex'>
-            <aside className='hidden md:flex'>
+        <>
+            <button onClick={handleOpen} className={isOpen ? 'md:hidden px-3 py-1 rounded-sm absolute z-10 text-white' : 'md:hidden px-3 py-1 rounded-sm absolute z-10 border-red-700 border border-t-0 border-l-0 text-red-800'}>
                 {
-                    role === 'employee' && <Sidebar mainMenu={employeeMenu} />
+                    isOpen ? <MdFormatIndentDecrease className="duration-500 ease-in" /> : <MdFormatIndentIncrease className="duration-500 ease-in" />
                 }
-                {
-                    role === 'hr' && <Sidebar mainMenu={hrMenu} />
-                }
-                {
-                    role === 'admin' && <Sidebar mainMenu={adminMenu} />
-                }
-            </aside>
 
 
-            <section>
-                <Outlet />
-            </section>
-        </div>
+            </button>
+            <div className='flex'>
+                <aside className={isOpen === true ? 'translate-x-0 md:flex duration-300 ease-out' : `-translate-x-60 md:translate-x-0 md:flex duration-300 ease-out`}>
+                    {
+                        role === 'employee' && <Sidebar mainMenu={employeeMenu} />
+                    }
+                    {
+                        role === 'hr' && <Sidebar mainMenu={hrMenu} />
+                    }
+                    {
+                        role === 'admin' && <Sidebar mainMenu={adminMenu} />
+                    }
+                </aside>
+
+
+                <section className={isOpen === true ? 'duration-700 ease-out my-10' : '-ml-56 md:ml-0 duration-700 ease-out my-10'}>
+                    <Outlet />
+                </section>
+            </div>
+        </>
     );
 };
 

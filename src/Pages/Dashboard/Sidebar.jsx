@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Sidebar = ({ mainMenu }) => {
 
     return (
-        <div className='w-60 min-h-screen bg-red-900 '>
+        <div className='min-h-screen bg-red-900 '>
             <div className="flex justify-center pt-10">
                 <Link to={'/'} className='relative bg-gray-200 text-black px-4  h-12 flex items-center rounded-md active:scale-95'>
                     <h1 className='text-3xl font-black w-fit font-raleway'><span className='text-red-700'>W</span>ork<span className='text-red-700'>on</span></h1>
