@@ -29,7 +29,7 @@ const Navbar = () => {
 
     const navmenu = <>
         <li>
-            <NavLink className={({ isActive }) => isActive ? 'border-b-2 border-red-700 font-medium' : 'hover:border-b-2 hover:border-red-300'} to={'/'}>Dashboard</NavLink>
+            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? 'border-b-2 border-red-700 font-medium' : 'hover:border-b-2 hover:border-red-300'}>Dashboard</NavLink>
         </li>
         <li>
             <NavLink className={'hover:border-b-2 hover:border-red-300'} to={'/contact'}>Contact us</NavLink>
