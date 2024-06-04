@@ -1,6 +1,6 @@
 import AdminHome from './HomeAdmin';
 import HrHome from './HomeHr';
-import EmployeeHome from './HomeEmployee';
+import EmployeeHome from './Empolyee/HomeEmployee';
 
 const Display = () => {
     const role = 'employee'

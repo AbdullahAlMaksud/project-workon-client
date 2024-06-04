@@ -7,6 +7,8 @@ import SignUp from "../authentication/SignUp";
 import SignIn from "../authentication/SignIn";
 import Display from "../Pages/Dashboard/Display";
 import Contact from "../Pages/Contact";
+import WorkSheet from "../Pages/Dashboard/Empolyee/WorkSheet/WorkSheet";
+import PaymentHistory from "../Pages/Dashboard/Empolyee/PaymentHistory/PaymentHistory";
 
 
 const router = createBrowserRouter([
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <Display />
+      },
+      {
+        path: 'work-sheet',
+        element: <WorkSheet />
+      },
+      {
+        path: 'payment-history',
+        element: <PaymentHistory />
       }
     ]
   }

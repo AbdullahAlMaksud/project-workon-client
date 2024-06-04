@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     const employeeMenu = <>
         <li className='text-white w-full flex'>
-            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10 flex items-center gap-3` : `w-full px-10 py-2  flex items-center gap-3`}>
+            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-black py-2 w-full px-10 flex items-center gap-3` : `w-full px-10 py-2  flex items-center gap-3`}>
                 <GrDashboard />
                 <span>Dashboard</span>
             </NavLink>
@@ -77,9 +77,9 @@ const Dashboard = () => {
 
     return (
         <>
-            <button onClick={handleOpen} className={isOpen ? 'md:hidden px-3 py-1 rounded-sm absolute z-10 text-white' : 'md:hidden px-3 py-1 rounded-sm absolute z-10 border-red-700 border border-t-0 border-l-0 text-red-800'}>
+            <button onClick={handleOpen} className={isOpen ? 'md:hidden px-2 py-2 rounded-full translate-x-44 shadow-sm shadow-black/50 absolute z-10 bg-red-800 border-white border-2 outline-dashed scale-75 outline-2 outline-red-400 text-white top-1 left-1 hover:shadow-none active:scale-70 duration-300 ease-out' : 'md:hidden px-3 py-1 rounded-md shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1 outline-red-600 text-white top-2 left-2 hover:shadow-none active:scale-95  duration-300 ease-out'}>
                 {
-                    isOpen ? <MdFormatIndentDecrease className="duration-500 ease-in" /> : <MdFormatIndentIncrease className="duration-500 ease-in" />
+                    isOpen ? <MdFormatIndentDecrease className="duration-500 ease-in text-xl" /> : <MdFormatIndentIncrease className="duration-500 ease-in" />
                 }
 
 
