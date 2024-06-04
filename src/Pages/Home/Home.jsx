@@ -15,12 +15,12 @@ const Home = () => {
                     <div className="px-6 py-6 md:px-8 md:py-0">
                         <h2 className="text-lg font-bold text-gray-700 dark:text-white md:text-gray-100">
                             Sign Up For{" "}
-                            <span className="text-blue-600 dark:text-red-300 md:text-red-300">
+                            <span className="text-red-600 dark:text-red-300 md:text-red-300">
                                 Project
                             </span>{" "}
                             Updates
                         </h2>
-                        <p className="mt-2 text-sm text-red-600 dark:text-gray-400 md:text-red-200">
+                        <p className="mt-2 text-sm md:text-red-100 dark:text-gray-400 ">
                             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur
                             obcaecati odio
                         </p>

@@ -1,9 +1,6 @@
-import React from 'react';
 import { FaPhoneAlt } from 'react-icons/fa';
-import { FaEnvelope, FaLocationPin } from 'react-icons/fa6';
-import { GiSeatedMouse } from 'react-icons/gi';
+import { FaEnvelope } from 'react-icons/fa6';
 import { HiLocationMarker } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
 
 const Contact = () => {
     return (

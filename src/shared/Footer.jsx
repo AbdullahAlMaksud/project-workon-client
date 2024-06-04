@@ -1,4 +1,3 @@
-import React from 'react';
 import { GiSeatedMouse } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +15,6 @@ const Footer = () => {
                 </div>
 
                 <div className='text-white py-3  md:w-full w-10/12 flex justify-center md:justify-end items-center md:items-end'>
-
                     <ul className='flex gap-3'>
                         <li>
                             <Link to={'/'}>Home</Link>

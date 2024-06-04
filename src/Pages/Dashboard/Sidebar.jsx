@@ -1,11 +1,8 @@
-import { Button } from "@headlessui/react";
-import { FaHome } from "react-icons/fa";
 import { GiSeatedMouse } from "react-icons/gi";
-import { GrHomeOption } from "react-icons/gr";
-import { HiHomeModern } from "react-icons/hi2";
 import { TbSmartHome } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const Sidebar = ({ mainMenu }) => {
 
@@ -18,7 +15,6 @@ const Sidebar = ({ mainMenu }) => {
                 </Link>
             </div>
 
-
             <div className="pt-10 pb-5 flex flex-col justify-between min-h-[calc(100vh-88px)]">
                 <div className="">
                     <ul>
@@ -27,7 +23,6 @@ const Sidebar = ({ mainMenu }) => {
                         }
                     </ul>
                 </div>
-
                 <div className="flex flex-col items-start text-white">
                     <Link to={'/'} className="flex items-center gap-3 py-2 px-10 hover:bg-red-800 w-full">
                         <TbSmartHome />
@@ -44,3 +39,7 @@ const Sidebar = ({ mainMenu }) => {
 };
 
 export default Sidebar;
+
+Sidebar.propTypes = {
+    mainMenu: PropTypes.object
+};

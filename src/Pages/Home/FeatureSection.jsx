@@ -36,7 +36,7 @@ const FeatureSection = () => {
             <div className="bg-white py-12">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col justify-center items-center mb-6">
-                        <h2 className="text-red-800 font-bold text-3xl text-center">Our Feature</h2>
+                        <h2 className="text-white bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">Our Feature</h2>
                         <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

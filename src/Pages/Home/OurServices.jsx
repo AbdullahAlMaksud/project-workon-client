@@ -78,13 +78,13 @@ const servicesData = [
 const OurServices = () => {
     return (
         <div className="w-11/12 container mx-auto">
-            <div className="flex flex-col justify-center items-center">
-                <h2 className="text-red-800 font-bold text-3xl text-center">Our Services</h2>
+            <div className="flex flex-col justify-center items-center mb-6">
+                <h2 className="text-white bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">Our Services</h2>
                 <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
             </div>
 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-3 md:gap-0">
 
                 {servicesData.map(service => {
                     // Dynamically select the icon component based on the icon name in the service data

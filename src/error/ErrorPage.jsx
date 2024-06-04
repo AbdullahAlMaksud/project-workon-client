@@ -10,7 +10,7 @@ const ErrorPage = () => {
     return (
         <div>
             <Helmet>
-                <title>StudyBee | 404</title>
+                <title>Workon | 404</title>
             </Helmet>
             <section className="bg-transparent">
                 <div className="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">
