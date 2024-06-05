@@ -89,41 +89,7 @@ const TestimonialSection = () => {
                         <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                     </div>
 
-                    <div className='hidden md:flex lg:hidden'>
-                        <Swiper
-                            slidesPerView={1.5}
-                            spaceBetween={25}
-                            centeredSlides={true}
-                            loop={true}
-                            autoplay={{
-                                delay: 1500,
-                                disableOnInteraction: false,
-                            }}
-                            pagination={{
-                                // clickable: true,
-                                dynamicBullets: true,
-                            }}
-                            navigation={false}
-                            modules={[Autoplay, Pagination, Navigation]}
-                            className="mySwiper"
-                        >
-                            {testimonialsData.map((testimonial) => (
-                                <SwiperSlide key={testimonial.id}>
-                                    <div className=" p-6 h-60 rounded-lg shadow-lg border">
-                                        <div className="flex items-center mb-4">
-                                            <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
-                                            <div>
-                                                <h3 className="text-xl font-bold">{testimonial.name}</h3>
-                                                <p className="text-gray-600">{testimonial.position}</p>
-                                            </div>
-                                        </div>
-                                        <p className="text-gray-700">{testimonial.testimonial}</p>
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </div>
-                    <div className='md:hidden'>
+                    <div className='md:hidden shadow-md shadow-black/20 rounded-2xl'>
                         <Swiper
                             // slidesPerView={'auto'}
                             // centeredSlides={true}
@@ -160,6 +126,43 @@ const TestimonialSection = () => {
                             ))}
                         </Swiper>
                     </div>
+
+
+                    <div className='hidden md:flex lg:hidden'>
+                        <Swiper
+                            slidesPerView={1.5}
+                            spaceBetween={25}
+                            centeredSlides={true}
+                            loop={true}
+                            autoplay={{
+                                delay: 1500,
+                                disableOnInteraction: false,
+                            }}
+                            pagination={{
+                                // clickable: true,
+                                dynamicBullets: true,
+                            }}
+                            navigation={false}
+                            modules={[Autoplay, Pagination, Navigation]}
+                            className="mySwiper"
+                        >
+                            {testimonialsData.map((testimonial) => (
+                                <SwiperSlide key={testimonial.id}>
+                                    <div className=" p-6 mb-10 h-60 rounded-lg shadow-lg bg-white dark:bg-gray-700/60">
+                                        <div className="flex items-center mb-4">
+                                            <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
+                                            <div>
+                                                <h3 className="text-xl font-bold text-white">{testimonial.name}</h3>
+                                                <p className="text-gray-600 dark:text-gray-300">{testimonial.position}</p>
+                                            </div>
+                                        </div>
+                                        <p className="text-gray-700 dark:text-gray-400">{testimonial.testimonial}</p>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+
                     <div className='hidden lg:flex'>
                         <Swiper
                             // slidesPerView={'auto'}
@@ -183,7 +186,7 @@ const TestimonialSection = () => {
                         >
                             {testimonialsData.map((testimonial) => (
                                 <SwiperSlide key={testimonial.id}>
-                                    <div className="bg-white p-6 h-60 rounded-lg shadow-lg border">
+                                    <div className="bg-white p-6 h-60 rounded-lg shadow-lg mb-10">
                                         <div className="flex items-center mb-4">
                                             <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
                                             <div>

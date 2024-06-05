@@ -77,7 +77,7 @@ const Contact = () => {
                             <h2 className="text-white bg-red-700 px-5 py-1 -rotate-2 font-bold text-2xl md:text-3xl text-center dark:text-gray-950">Anything to say?</h2>
                             <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                         </div>
-                        <form className='border rounded-xl lg:p-10'>
+                        <form className='rounded-xl lg:p-10'>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                                     Name
