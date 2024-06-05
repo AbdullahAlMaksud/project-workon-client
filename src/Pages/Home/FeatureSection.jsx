@@ -33,10 +33,10 @@ const FeatureSection = () => {
     return (
         <div>
 
-            <div className="bg-white py-12">
-                <div className="container mx-auto px-4">
+            <div className="py-12">
+                <div className="container w-11/12 mx-auto">
                     <div className="flex flex-col justify-center items-center mb-6">
-                        <h2 className="text-white bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">Our Feature</h2>
+                        <h2 className="text-white dark:text-slate-950 bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">Our Feature</h2>
                         <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -45,10 +45,10 @@ const FeatureSection = () => {
                         {featuresData.map((feature) => {
                             const IconComponent = Icons[feature.icon];
                             return (
-                                <div key={feature.id} className="bg-gray-100 p-6 rounded-lg shadow-lg text-center">
-                                    <IconComponent className="text-purple-500 text-4xl mb-4 mx-auto" />
-                                    <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                                    <p className="text-gray-700">{feature.description}</p>
+                                <div key={feature.id} className="bg-gray-100 dark:bg-gray-800/50 p-6 rounded-lg shadow-lg text-center">
+                                    <IconComponent className="text-purple-500 dark:text-orange-700 text-4xl mb-4 mx-auto" />
+                                    <h3 className="text-xl dark:text-white font-bold mb-2">{feature.title}</h3>
+                                    <p className="text-gray-700 dark:text-gray-300">{feature.description}</p>
                                 </div>
                             );
                         })}

@@ -83,9 +83,9 @@ const TestimonialSection = () => {
     return (
         <div>
             <div className="pb-12">
-                <div className="container mx-auto px-4">
+                <div className="container w-11/12 mx-auto">
                     <div className="flex flex-col justify-center items-center mb-6">
-                        <h2 className="text-white bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">What Our Client Say?</h2>
+                        <h2 className="text-white dark:text-slate-950 bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">What Our Client Say?</h2>
                         <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                     </div>
 
@@ -109,7 +109,7 @@ const TestimonialSection = () => {
                         >
                             {testimonialsData.map((testimonial) => (
                                 <SwiperSlide key={testimonial.id}>
-                                    <div className="bg-white p-6 h-60 rounded-lg shadow-lg border">
+                                    <div className=" p-6 h-60 rounded-lg shadow-lg border">
                                         <div className="flex items-center mb-4">
                                             <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
                                             <div>

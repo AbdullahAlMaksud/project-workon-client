@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'selector',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,12 +8,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'bangla': ['"Hind Siliguri"', 'sans-serif'],
-        'poppins': ['"Poppins"', 'sans-serif'],
-        'raleway': ['"Raleway"', 'sans-serif'],
+        hind: ["Hind Siliguri", 'sans-serif'],
+        poppins: ["Poppins", 'sans-serif'],
+        relaway: ["Raleway", 'sans-serif']
       }
     },
   },
   plugins: [],
 }
-
