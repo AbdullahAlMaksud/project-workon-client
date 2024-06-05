@@ -38,26 +38,27 @@ const router = createBrowserRouter([
         path: '/contact',
         element: <Contact />
       },
-    ]
-  },
-  {
-    path: '/dashboard',
-    element: <DashboardLayout />,
-    children: [
       {
         path: '/dashboard',
-        element: <Display />
-      },
-      {
-        path: 'work-sheet',
-        element: <WorkSheet />
-      },
-      {
-        path: 'payment-history',
-        element: <PaymentHistory />
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/dashboard',
+            element: <Display />
+          },
+          {
+            path: 'work-sheet',
+            element: <WorkSheet />
+          },
+          {
+            path: 'payment-history',
+            element: <PaymentHistory />
+          }
+        ]
       }
     ]
-  }
+  },
+
 ]);
 
 export default router;

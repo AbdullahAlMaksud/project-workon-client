@@ -19,20 +19,20 @@ const DashboardLayout = () => {
     }
 
     const employeeMenu = <>
-        <li className='text-white w-full flex'>
-            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-black py-2 w-full px-10 flex items-center gap-3` : `w-full px-10 py-2  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex'>
+            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-800 rounded-full mx-2 py-1 w-full px-10 flex items-center gap-3` : `w-full px-10 py-1  flex items-center gap-3`}>
                 <GrDashboard />
                 <span>Dashboard</span>
             </NavLink>
         </li>
-        <li className='text-white w-full flex'>
-            <NavLink to={'work-sheet'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10  flex items-center gap-3` : `w-full px-10 py-2 hover:bg-red-800  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex mt-2'>
+            <NavLink to={'work-sheet'} className={({ isActive }) => isActive ? `bg-red-500 rounded-b-xl py-1 w-full px-10  flex items-center gap-3 mx-2` : `w-full px-10 py-1 mx-2 rounded-b-lg hover:bg-red-400 flex items-center gap-3`}>
                 <MdOutlineWorkHistory />
                 <span>Work Sheet</span>
             </NavLink>
         </li>
-        <li className='text-white w-full flex'>
-            <NavLink to={'payment-history'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10  flex items-center gap-3` : `w-full px-10 py-2 hover:bg-red-800  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex mt-2'>
+            <NavLink to={'payment-history'} className={({ isActive }) => isActive ? `bg-red-500 rounded-b-xl py-1 w-full px-10  flex items-center gap-3 mx-2` : `w-full px-10 py-1 mx-2 rounded-b-lg hover:bg-red-400 flex items-center gap-3`}>
                 <MdOutlinePayments />
                 <span>Payment History</span>
             </NavLink>
@@ -40,20 +40,20 @@ const DashboardLayout = () => {
     </>
 
     const hrMenu = <>
-        <li className='text-white w-full flex'>
-            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10 flex items-center gap-3` : `w-full px-10 py-2  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex'>
+            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-800 rounded-full mx-2 py-1 w-full px-10 flex items-center gap-3` : `w-full px-10 py-1  flex items-center gap-3`}>
                 <GrDashboard />
                 <span>Dashboard</span>
             </NavLink>
         </li>
-        <li className='text-white w-full flex'>
-            <NavLink to={'employee-list'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10  flex items-center gap-3` : `w-full px-10 py-2 hover:bg-red-800  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex mt-2'>
+            <NavLink to={'employee-list'} className={({ isActive }) => isActive ? `bg-red-500 rounded-b-xl py-1 w-full px-10  flex items-center gap-3 mx-2` : `w-full px-10 py-1 mx-2 rounded-b-lg hover:bg-red-400 flex items-center gap-3`}>
                 <MdOutlineWorkHistory />
                 <span>Employee List</span>
             </NavLink>
         </li>
-        <li className='text-white w-full flex'>
-            <NavLink to={`progress`} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10  flex items-center gap-3` : `w-full px-10 py-2 hover:bg-red-800  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex mt-2'>
+            <NavLink to={`progress`} className={({ isActive }) => isActive ? `bg-red-500 rounded-b-xl py-1 w-full px-10  flex items-center gap-3 mx-2` : `w-full px-10 py-1 mx-2 rounded-b-lg hover:bg-red-400 flex items-center gap-3`}>
                 <GiProgression />
                 <span>Progress</span>
             </NavLink>
@@ -61,14 +61,14 @@ const DashboardLayout = () => {
     </>
 
     const adminMenu = <>
-        <li className='text-white w-full flex'>
-            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10 flex items-center gap-3` : `w-full px-10 py-2  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex'>
+            <NavLink to={'/dashboard'} className={({ isActive }) => isActive ? `bg-red-800 rounded-full mx-2 py-1 w-full px-10 flex items-center gap-3` : `w-full px-10 py-1  flex items-center gap-3`}>
                 <GrDashboard />
                 <span>Dashboard</span>
             </NavLink>
         </li>
-        <li className='text-white w-full flex'>
-            <NavLink to={'all-employee-list'} className={({ isActive }) => isActive ? `bg-red-950 py-2 w-full px-10  flex items-center gap-3` : `w-full px-10 py-2 hover:bg-red-800  flex items-center gap-3`}>
+        <li className='dark:text-white text-black w-full flex mt-2'>
+            <NavLink to={'all-employee-list'} className={({ isActive }) => isActive ? `bg-red-500 rounded-b-xl py-1 w-full px-10  flex items-center gap-3 mx-2` : `w-full px-10 py-1 mx-2 rounded-b-lg hover:bg-red-400 flex items-center gap-3`}>
                 <TbUsersGroup />
                 <span>All Employee List</span>
             </NavLink>
@@ -77,15 +77,15 @@ const DashboardLayout = () => {
 
     return (
         <>
-            <button onClick={handleOpen} className={isOpen ? 'md:hidden px-2 py-2 rounded-full translate-x-44 shadow-sm shadow-black/50 absolute z-10 bg-red-800 border-white border-2 outline-dashed scale-75 outline-2 outline-red-400 text-white top-1 left-1 hover:shadow-none active:scale-70 duration-300 ease-out' : 'md:hidden px-3 py-1 rounded-md shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1 outline-red-600 text-white top-2 left-2 hover:shadow-none active:scale-95  duration-300 ease-out'}>
+            <button onClick={handleOpen} className={isOpen ? 'px-1.5 py-1.5 rounded-full shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1  text-white top-20 left-4 outline-white hover:shadow-none active:scale-95  duration-500 ease-out' : 'px-3 py-1 rounded-md shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1 outline-red-600 text-white top-20 left-3 hover:shadow-none active:scale-95  duration-500 ease-out animate-pulse'}>
                 {
-                    isOpen ? <MdFormatIndentDecrease className="duration-500 ease-in text-xl" /> : <MdFormatIndentIncrease className="duration-500 ease-in" />
+                    isOpen ? <MdFormatIndentDecrease className='rotate-90 duration-500 ease-in-out' /> : <MdFormatIndentIncrease className='rotate-90 duration-500 ease-in-out' />
                 }
 
 
             </button>
             <div className='flex'>
-                <aside className={isOpen === true ? 'translate-x-0 md:flex duration-300 ease-out' : `-translate-x-60 md:translate-x-0 md:flex duration-300 ease-out`}>
+                <aside className={isOpen === true ? 'translate-y-0 flex duration-1000 ease-out ml-2' : `-translate-y-[900px] flex duration-1000 ease-out`}>
                     {
                         role === 'employee' && <Sidebar mainMenu={employeeMenu} />
                     }
@@ -97,7 +97,7 @@ const DashboardLayout = () => {
                     }
                 </aside>
 
-                <section className={isOpen === true ? 'duration-700 ease-out my-10' : '-ml-56 md:ml-0 duration-700 ease-out my-10'}>
+                <section className={isOpen === true ? 'ml-2 duration-700 ease-out' : '-ml-56 duration-700 ease-out'}>
                     <Outlet />
                 </section>
             </div>
