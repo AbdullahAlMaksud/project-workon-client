@@ -3,46 +3,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSeatedMouse } from 'react-icons/gi';
 import { Helmet } from 'react-helmet-async';
-import axios from "axios";
 
 const Authentication = () => {
     const [photo, setPhoto] = useState();
-    const [photoName, setPhotoName] = useState();
-    const [photoFile, setphotoFile] = useState();
-    const [photoUrl, setPhotoUrl] = useState();
-
-    const handleGetPhoto = async (e) => {
+    const handleGetPhoto = (e) => {
         e.preventDefault();
+        // const photoFile = e.target.photoUrl.files;
         const photoView = URL.createObjectURL(e.target.files[0]);
         setPhoto(photoView)
-        console.log(photoView)
-
-        const photo = e.target.files[0].name;
-        setPhotoName(photo)
-        console.log(photoName)
-
-        const photoFileRaw = e.target.files[0];
-        //ImgBB
-        const formData = new FormData();
-        formData.append('image', photoFileRaw);
-        console.log(photoFileRaw)
-        console.log(formData)
-
-        try {
-            const { data } = await axios.post(
-                `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData
-            )
-            console.log(data)
-            setPhotoUrl(data.data.display_url)
-            console.log(photoUrl)
-
-
-
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
-
+        console.log(photo)
     }
+
     const [selectedButton, setSelectedButton] = useState('Employee');
     const handleButtonClick = (buttonValue) => {
         setSelectedButton(buttonValue);
@@ -317,7 +288,7 @@ const Authentication = () => {
                                                             >
                                                                 Profile Photo
                                                             </label>
-                                                            <div className='flex gap-1 flex-col-reverse md:flex-row'>
+                                                            <div className='flex gap-1'>
                                                                 <label
                                                                     className="flex flex-col items-center w-full max-w-lg p-5 h-32 mx-auto mt-2 text-center bg-white border-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl"
                                                                 >
@@ -339,13 +310,11 @@ const Authentication = () => {
                                                                         Upload Images
                                                                     </h2>
                                                                     <p className="mt-2 text-xs tracking-wide text-gray-500 dark:text-gray-400">
-                                                                        {
-                                                                            photoName ? photoName : `Upload or darg &amp; drop your file SVG, PNG, JPG or GIF.{" "}`
-                                                                        }
+
                                                                     </p>
                                                                     <input id="dropzone-file" onChange={handleGetPhoto} name="photoUpload" type="file" className="hidden" />
                                                                 </label>
-                                                                <div className={photo ? "flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl" : "hidden md:flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl"}>
+                                                                <div className="flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl">
                                                                     <img className='h-28 object-cover w-full rounded-lg' src={photo || "./user.svg"} alt="" />
                                                                 </div>
                                                             </div>
@@ -391,4 +360,4 @@ const Authentication = () => {
     );
 };
 
-export default Authentication;
+export default Authentication;Upload or darg & amp; drop your file SVG, PNG, JPG or GIF.{ " " }

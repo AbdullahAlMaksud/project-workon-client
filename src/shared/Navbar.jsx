@@ -11,6 +11,8 @@ const Navbar = () => {
     const dropRef = useRef(null);
     const [user, setUser] = useState(false);
 
+
+
     const handleDropdown = () => {
         setIsOpen(!isOpen)
         console.log(isOpen)

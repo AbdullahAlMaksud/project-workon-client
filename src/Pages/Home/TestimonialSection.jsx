@@ -89,7 +89,7 @@ const TestimonialSection = () => {
                         <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
                     </div>
 
-                    <div className='md:hidden shadow-md shadow-black/20 rounded-2xl'>
+                    <div className='md:hidden shadow-md shadow-black/20 rounded-sm'>
                         <Swiper
                             // slidesPerView={'auto'}
                             // centeredSlides={true}
@@ -111,8 +111,8 @@ const TestimonialSection = () => {
                             className="mySwiper"
                         >
                             {testimonialsData.map((testimonial) => (
-                                <SwiperSlide key={testimonial.id}>
-                                    <div className="bg-white p-6 h-60 rounded-lg shadow-lg border">
+                                <SwiperSlide key={testimonial.id} className='rounded-xl'>
+                                    <div className="bg-white p-6 h-60 rounded-xl">
                                         <div className="flex items-center mb-4">
                                             <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
                                             <div>
