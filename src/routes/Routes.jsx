@@ -47,11 +47,11 @@ const router = createBrowserRouter([
             element: <Display />
           },
           {
-            path: 'work-sheet',
+            path: '/dashboard/work-sheet',
             element: <WorkSheet />
           },
           {
-            path: 'payment-history',
+            path: '/dashboard/payment-history',
             element: <PaymentHistory />
           }
         ]
