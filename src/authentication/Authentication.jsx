@@ -4,15 +4,22 @@ import { Link } from 'react-router-dom';
 import { GiSeatedMouse } from 'react-icons/gi';
 import { Helmet } from 'react-helmet-async';
 import axios from "axios";
+import toast from 'react-hot-toast';
 
 const Authentication = () => {
     const [photo, setPhoto] = useState();
     const [photoName, setPhotoName] = useState();
-    const [photoFile, setphotoFile] = useState();
     const [photoUrl, setPhotoUrl] = useState();
+    const [alerts, setAlerts] = useState();
+    const [isChecked, setIsChecked] = useState(false);
+
+    const showPassword = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     const handleGetPhoto = async (e) => {
         e.preventDefault();
+
         const photoView = URL.createObjectURL(e.target.files[0]);
         setPhoto(photoView)
         console.log(photoView)
@@ -43,25 +50,68 @@ const Authentication = () => {
         }
 
     }
+
     const [selectedButton, setSelectedButton] = useState('Employee');
     const handleButtonClick = (buttonValue) => {
         setSelectedButton(buttonValue);
         console.log('Button clicked:', buttonValue);
     };
 
+
+    const handlePasswordChange = (e) => {
+        const password = e.target.value;
+
+
+        // Check each condition and add a corresponding message if the condition is not met
+        if (password.length < 8) {
+            ('Password must be at least 8 characters long.');
+        }
+        // if (!/[a-z]/.test(password)) {
+        //     return setAlerts('Password must contain at least one lowercase letter.');
+        // }
+        // if (!/[A-Z]/.test(password)) {
+        //     return setAlerts('Password must contain at least one uppercase letter.');
+        // }
+        // if (!/\d/.test(password)) {
+        //     return setAlerts('Password must contain at least one digit.');
+        // }
+        // if (!/[@$!%*?&]/.test(password)) {
+        //     return setAlerts('Password must contain at least one special character.');
+        // }
+        // console.log(alerts)
+
+        // Update the alerts state
+        // setAlerts(newAlerts);
+    };
+
     const handleSignUp = (e) => {
         e.preventDefault();
-        const role = selectedButton;
         const form = e.target;
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
-        const email = form.email.value;
+        const imageURL = photoUrl;
         const phoneNumber = form.phoneNumber.value;
+        const email = form.email.value;
         const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-        const photoUpload = form.photoUpload.files;
 
-        console.log({ typeOfaccount: role, firstName, lastName, email, phoneNumber, password, confirmPassword, photoUpload })
+        const confirmPassword = form.confirmPassword.value;
+
+        const isVerified = false;
+        const role = selectedButton;
+        const designation = "";
+        const bank_account_no = "";
+        const salary = {};
+
+        const userData = { role, firstName, lastName, email, phoneNumber, password, confirmPassword, imageURL, isVerified, bank_account_no, salary, designation }
+
+
+        if (password !== confirmPassword) {
+            // console.log('No Match')
+            const abd = () => toast.error('Password does not match!')
+            return abd()
+        }
+
+        console.log("after password match:", userData);
     }
 
     return (
@@ -362,12 +412,20 @@ const Authentication = () => {
                                                         Password
                                                     </label>
                                                     <input
-                                                        type="password"
+                                                        type={isChecked ? "text" : "password"} onKeyUp={handlePasswordChange}
                                                         placeholder="Enter your password" name="password"
                                                         className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                                     />
+                                                    <div className='flex gap-2 mt-3 items-center ml-1'>
+                                                        <input type="checkbox" name="showPass"
+                                                            checked={isChecked}
+                                                            onChange={showPassword}
+
+                                                            className="form-checkbox h-4 w-4 rounded-xl bg-red-700 text-blue-600" id="" />
+                                                        <p className='text-sm'>Show Password</p>
+                                                    </div>
                                                 </div>
-                                                <div>
+                                                <div className='col-span-2 md:col-span-1'>
                                                     <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                                                         Confirm password
                                                     </label>
