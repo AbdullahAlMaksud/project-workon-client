@@ -9,6 +9,7 @@ const Authentication = () => {
             <Helmet>
                 <title>Workon | Authentication</title>
             </Helmet>
+
             <div className='flex items-center justify-center'>
                 <div className='w-full flex flex-col items-center'>
                     <div className={'bg-gray-300 lg:w-fit px-2 py-2 rounded-full flex gap-2'}>

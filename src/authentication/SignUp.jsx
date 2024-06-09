@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import axios from "axios";
-
 import toast from 'react-hot-toast';
 import { GiSeatedMouse } from 'react-icons/gi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxiosNormal from '../hook/useAxiosNormal'; import { AuthContext } from '../provider/AuthProvider';
+import userImg from '../../public/user.svg'
 
 const SignUp = () => {
     const {
@@ -13,7 +13,6 @@ const SignUp = () => {
         updateUserInfo,
         user,
         loading,
-        signInWithGoogole,
     } = useContext(AuthContext)
     const [photo, setPhoto] = useState('');
     const [photoName, setPhotoName] = useState();
@@ -25,7 +24,6 @@ const SignUp = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state || '/'
-
 
 
     const showPassword = (e) => {
@@ -108,27 +106,21 @@ const SignUp = () => {
         const salary = {};
         const name = firstName + lastName;
         console.log(name)
-
         const userData = { role, firstName, lastName, email, phoneNumber, password, imageURL, isVerified, bank_account_no, salary, designation }
-
 
         if (password !== confirmPassword) {
             const abd = () => toast.error('Password does not match!')
             return abd()
         }
-
-        console.log("after password match:", userData);
-
+        // console.log("after password match:", userData);
 
         try {
             const result = await registerWithEmailAndPassword(email, password)
             await updateUserInfo(name, imageURL)
             setUser({ ...result?.user, photoURL: imageURL, displayName: name })
-
             await axiosNormal.post('/users', userData)
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
-
             navigate(from, { replace: true })
             toast.success('Your Profie Created SuccessFully!')
         }
@@ -142,8 +134,6 @@ const SignUp = () => {
         return
     }
 
-    console.log(user)
-
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
             <div className="flex justify-center ">
@@ -154,7 +144,6 @@ const SignUp = () => {
                             'url("https://images.unsplash.com/photo-1494621930069-4fd4b2e24a11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80")'
                     }}
                 ></div>
-
                 <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
                     <div className="w-full">
                         <div className="flex justify-start -ml-2">
@@ -163,7 +152,6 @@ const SignUp = () => {
                                 <GiSeatedMouse className='absolute -right-2 -top-1 text-red-700' />
                             </Link>
                         </div>
-
                         <p className="mb-10 mt-1 text-sm md:text-xl text-gray-600 dark:text-gray-200">
                             Let’s get you all set up so you can verify your personal account and
                             begin setting up your profile.
@@ -173,7 +161,6 @@ const SignUp = () => {
                             <h1 className="text-gray-500 dark:text-gray-300">
                                 Select type of account
                             </h1>
-
                             <div className="mt-3 md:flex md:items-center md:-mx-2">
                                 <button onClick={() => handleUserRole('Employee')} className={selectedButton === 'Employee' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0"}>
                                     <svg
@@ -254,7 +241,6 @@ const SignUp = () => {
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
-
                             <div className='col-span-2'>
                                 <div className=''>
                                     <div >
@@ -292,17 +278,12 @@ const SignUp = () => {
                                                 <input id="dropzone-file" onChange={handleGetPhoto} name="photoUpload" type="file" className="hidden" />
                                             </label>
                                             <div className={photo ? "flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl" : "hidden md:flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl"}>
-                                                <img className='h-28 object-cover w-full rounded-lg' src={photo === undefined ? "./user.png" : photo} alt="" />
+                                                <img className='h-28 object-cover w-full rounded-lg' src={photo ? photo : userImg} alt="" />
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                             </div>
-
-
                             <div className='col-span-2 md:col-span-1'>
                                 <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
                                     Password
@@ -334,6 +315,7 @@ const SignUp = () => {
                             </div>
                             <input type="submit" value={'Sign up'} className="w-full col-span-2 px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-800 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 hover:cursor-pointer" />
                         </form>
+
                     </div>
                 </div>
             </div>
