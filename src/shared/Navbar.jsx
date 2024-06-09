@@ -57,7 +57,7 @@ const Navbar = () => {
                         }
 
                         <div>
-                            <Link to={'/authentication'}><button className='bg-red-700 text-white font-poppins px-8 py-2 rounded-md text-sm hover:bg-red-800 active:scale-95'>Login</button></Link>
+                            <Link to={'/authentication/login'}><button className='bg-red-700 text-white font-poppins px-8 py-2 rounded-md text-sm hover:bg-red-800 active:scale-95'>Login</button></Link>
                         </div>
                     </div>
                     <div onClick={handleDropdown} className='md:hidden flex items-center justify-end hover:cursor-pointer'>
@@ -84,7 +84,7 @@ const Navbar = () => {
                             view profile
                         </NavLink> :
                             <NavLink
-                                to={'/authentication'}
+                                to={'/authentication/login'}
                                 className="px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white flex items-end gap-3"
                             >
                                 <BiUser className="p-0.5 text-xl" /> <span>Sign In</span>

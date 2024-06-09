@@ -1,14 +1,36 @@
-import { GiSeatedMouse } from "react-icons/gi";
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from "axios";
+
 import toast from 'react-hot-toast';
+import { GiSeatedMouse } from 'react-icons/gi';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAxiosNormal from '../hook/useAxiosNormal'; import { AuthContext } from '../provider/AuthProvider';
 
 const SignUp = () => {
-    const [photo, setPhoto] = useState();
+    const {
+        registerWithEmailAndPassword,
+        setUser,
+        updateUserInfo,
+        user,
+        loading,
+        signInWithGoogole,
+    } = useContext(AuthContext)
+    const [photo, setPhoto] = useState('');
     const [photoName, setPhotoName] = useState();
     const [photoUrl, setPhotoUrl] = useState();
     const [alerts, setAlerts] = useState();
+    const [isChecked, setIsChecked] = useState(false);
+    const [selectedButton, setSelectedButton] = useState('Employee');
+    const axiosNormal = useAxiosNormal();
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state || '/'
+
+
+
+    const showPassword = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     const handleGetPhoto = async (e) => {
         e.preventDefault();
@@ -44,39 +66,32 @@ const SignUp = () => {
 
     }
 
-    const [selectedButton, setSelectedButton] = useState('Employee');
-    const handleButtonClick = (buttonValue) => {
+    const handleUserRole = (buttonValue) => {
         setSelectedButton(buttonValue);
         console.log('Button clicked:', buttonValue);
     };
 
+    const handlePasswordCheck = (e) => {
+        const password = e.target.value;
+        if (password.length < 8
+            || (!/[a-z]/.test(password))
+            || (!/[A-Z]/.test(password))
+            || (!/[@$!%*?&^#]/.test(password))
+            || (!/\d/.test(password))) {
+            setAlerts('Password must contain one UPPERCASE, one LOWERCASE, one Number, one Special Charechter (@$!%*?&^#) and it have to be at least 8 characters long.');
+        }
+        else {
+            setAlerts('')
+        }
+    };
 
-    // const handlePasswordChange = (e) => {
-    //     const password = e.target.value;
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [navigate, user])
 
-    //     // Check each condition and add a corresponding message if the condition is not met
-    //     if (password.length < 8) {
-    //         return setAlerts('Password must be at least 8 characters long.');
-    //     }
-    //     if (!/[a-z]/.test(password)) {
-    //         return setAlerts('Password must contain at least one lowercase letter.');
-    //     }
-    //     if (!/[A-Z]/.test(password)) {
-    //         return setAlerts('Password must contain at least one uppercase letter.');
-    //     }
-    //     if (!/\d/.test(password)) {
-    //         return setAlerts('Password must contain at least one digit.');
-    //     }
-    //     if (!/[@$!%*?&]/.test(password)) {
-    //         return setAlerts('Password must contain at least one special character.');
-    //     }
-    //     console.log(alerts)
-
-    //     // Update the alerts state
-    //     // setAlerts(newAlerts);
-    // };
-
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         const form = e.target;
         const firstName = form.firstName.value;
@@ -85,28 +100,50 @@ const SignUp = () => {
         const phoneNumber = form.phoneNumber.value;
         const email = form.email.value;
         const password = form.password.value;
-
         const confirmPassword = form.confirmPassword.value;
-
         const isVerified = false;
         const role = selectedButton;
         const designation = "";
-        const salary = "";
         const bank_account_no = "";
+        const salary = {};
+        const name = firstName + lastName;
+        console.log(name)
 
-        const userData = { role, firstName, lastName, email, phoneNumber, password, confirmPassword, imageURL, isVerified, bank_account_no, salary, designation }
+        const userData = { role, firstName, lastName, email, phoneNumber, password, imageURL, isVerified, bank_account_no, salary, designation }
 
-        console.log(userData);
 
         if (password !== confirmPassword) {
-            return toast.error('Here is your toast.')
+            const abd = () => toast.error('Password does not match!')
+            return abd()
         }
 
-
-
-
         console.log("after password match:", userData);
+
+
+        try {
+            const result = await registerWithEmailAndPassword(email, password)
+            await updateUserInfo(name, imageURL)
+            setUser({ ...result?.user, photoURL: imageURL, displayName: name })
+
+            await axiosNormal.post('/users', userData)
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+
+            navigate(from, { replace: true })
+            toast.success('Your Profie Created SuccessFully!')
+        }
+        catch (error) {
+            console.log(error);
+            toast.error(error.messege);
+        }
     }
+
+    if (user || loading) {
+        return
+    }
+
+    console.log(user)
+
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
             <div className="flex justify-center ">
@@ -138,7 +175,7 @@ const SignUp = () => {
                             </h1>
 
                             <div className="mt-3 md:flex md:items-center md:-mx-2">
-                                <button onClick={() => handleButtonClick('Employee')} className={selectedButton === 'Employee' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0"}>
+                                <button onClick={() => handleUserRole('Employee')} className={selectedButton === 'Employee' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0"}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="w-6 h-6"
@@ -155,7 +192,7 @@ const SignUp = () => {
                                     </svg>
                                     <span className="mx-2">Employee</span>
                                 </button>
-                                <button onClick={() => handleButtonClick('HR Officer')} className={selectedButton === 'HR Officer' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none"}>
+                                <button onClick={() => handleUserRole('HR Officer')} className={selectedButton === 'HR Officer' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none"}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="w-6 h-6"
@@ -255,7 +292,7 @@ const SignUp = () => {
                                                 <input id="dropzone-file" onChange={handleGetPhoto} name="photoUpload" type="file" className="hidden" />
                                             </label>
                                             <div className={photo ? "flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl" : "hidden md:flex flex-col items-center min-w-32 h-32 mx-auto mt-2 text-center bg-white border-2 p-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-900 dark:border-gray-700 rounded-xl"}>
-                                                <img className='h-28 object-cover w-full rounded-lg' src={photo || "./user.svg"} alt="" />
+                                                <img className='h-28 object-cover w-full rounded-lg' src={photo === undefined ? "./user.png" : photo} alt="" />
                                             </div>
                                         </div>
                                     </div>
@@ -271,10 +308,19 @@ const SignUp = () => {
                                     Password
                                 </label>
                                 <input
-                                    type="password"
+                                    type={isChecked ? "text" : "password"} onKeyUp={handlePasswordCheck}
                                     placeholder="Enter your password" name="password"
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
+                                <p className='text-[.7rem] text-red-500'>{alerts}</p>
+                                <div className='flex gap-2 mt-3 items-center ml-1'>
+                                    <input type="checkbox" name="showPass"
+                                        checked={isChecked}
+                                        onChange={showPassword}
+
+                                        className="form-checkbox h-4 w-4 rounded-xl bg-red-700 text-blue-600" id="" />
+                                    <p className='text-sm'>Show Password</p>
+                                </div>
                             </div>
                             <div className='col-span-2 md:col-span-1'>
                                 <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
