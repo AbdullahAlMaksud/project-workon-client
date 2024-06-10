@@ -1,17 +1,94 @@
 import { useContext } from "react";
 import { GiSeatedMouse } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxiosNormal from "../hook/useAxiosNormal";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
+    const axiosNormal = useAxiosNormal();
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state || '/'
+
     const {
         registerWithEmailAndPassword,
         setUser,
         updateUserInfo,
         user,
         loading,
+        logInWithEmailAndPassword,
         signInWithGoogole,
     } = useContext(AuthContext)
+
+
+
+
+
+
+    const handleGoogleSignUp = () => {
+        signInWithGoogole()
+            .then(res => {
+                console.log(res.user)
+                if (res.user) {
+                    const tost = () => toast.success('Login Successfull')
+                    tost();
+                }
+                const user = res.user
+                const name = user.displayName;
+                const photoURL = user.photoURL;
+                const phoneNumber = user.phoneNumber;
+                // const firstName = form.firstName.value;
+                // const lastName = form.lastName.value;
+                const email = user.email;
+                const isVerified = false;
+                const role = 'Employee';
+                const designation = "";
+                const bank_account_no = "";
+                const salary = {};
+                console.log(name)
+                const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
+
+                try {
+                    axiosNormal.post('/users', userData)
+                        .then(res => console.log(res))
+                        .catch(err => console.log(err))
+                    navigate(from, { replace: true })
+                }
+                catch (error) {
+                    console.log(error);
+                    toast.error(error.messege);
+                }
+
+            })
+            .then(error => console.log(error))
+
+    }
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email, password)
+
+        try {
+            await logInWithEmailAndPassword(email, password)
+                // await updateUserInfo(name, imageURL)
+                // setUser({ ...result?.user, photoURL: user?.photoURL, displayName: user.displayName })
+                // await axiosNormal.post('/users', userData)
+                .then(res => {
+                    console.log(res.user)
+                })
+                .catch(err => console.log(err))
+            navigate(from, { replace: true })
+            toast.success('Login SuccessFully!')
+        }
+        catch (error) {
+            console.log(error);
+            toast.error(error.messege);
+        }
+    }
 
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
@@ -28,7 +105,7 @@ const SignIn = () => {
                     <div className="w-full">
                         <div className="flex w-full max-w-2xl mx-auto overflow-hidden   lg:max-w-4xl">
 
-                            <form className="w-full px-6 py-8">
+                            <form onSubmit={handleLogin} className="w-full px-6 py-8">
                                 <div className="flex justify-center mx-auto">
                                     <Link to={'/'} className='relative hover:bg-gray-100/20 dark:hover:bg-gray-800/70 text-black px-2 py-1 rounded-lg active:scale-95'>
                                         <h1 className='text-3xl text-black dark:text-white w-fit font-black font-raleway'><span className='text-red-700'>W</span>ork<span className='text-red-700'>on</span></h1>
@@ -39,7 +116,7 @@ const SignIn = () => {
                                     Welcome, buddy! Wanna login to your account?
                                 </p>
                                 <button
-
+                                    onClick={handleGoogleSignUp}
                                     className="flex w-full items-center justify-center mt-10 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                                 >
                                     <div className="px-4 py-2">
@@ -84,6 +161,7 @@ const SignIn = () => {
                                         Email Address
                                     </label>
                                     <input
+                                        name="email"
                                         id="LoggingEmailAddress"
                                         className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                                         type="email"
@@ -105,6 +183,7 @@ const SignIn = () => {
                                         </a>
                                     </div>
                                     <input
+                                        name="password"
                                         id="loggingPassword"
                                         className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                                         type="password"

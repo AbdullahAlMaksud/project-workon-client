@@ -106,7 +106,7 @@ const SignUp = () => {
         const salary = {};
         const name = firstName + lastName;
         console.log(name)
-        const userData = { role, firstName, lastName, email, phoneNumber, password, imageURL, isVerified, bank_account_no, salary, designation }
+        const userData = { role, firstName, lastName, email, phoneNumber, imageURL, isVerified, bank_account_no, salary, designation }
 
         if (password !== confirmPassword) {
             const abd = () => toast.error('Password does not match!')

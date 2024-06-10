@@ -1,15 +1,19 @@
 import { GiSeatedMouse } from "react-icons/gi";
 import { Link, NavLink } from 'react-router-dom';
 import { BiCross, BiMenu, BiUser } from 'react-icons/bi';
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DarkMode from "../utilities/DarkMode";
-
+import { AuthContext } from "../provider/AuthProvider";
+import userDefaultImage from '../../public/user.svg'
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = useState(false)
     const dropRef = useRef(null);
-    const [user, setUser] = useState(false);
+
+    const { user, logOut } = useContext(AuthContext)
+    console.log(user)
 
 
 
@@ -43,7 +47,7 @@ const Navbar = () => {
 
     return (
 
-        <div className='fixed z-10 shadow-sm w-full dark:bg-slate-800/50 bg-slate-50/60 backdrop-blur-md min-h-16 flex items-center justify-center'>
+        <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-slate-50/60 backdrop-blur-md min-h-16 flex items-center justify-center'>
             <section className='w-11/12 container mx-auto'>
                 <div className='w-full flex justify-between md:grid md:grid-cols-3'>
                     <Link to={'/'} className='col-span-1 w-fit relative hover:bg-gray-300 px-2 py-1 rounded-lg active:scale-95'>
@@ -56,9 +60,22 @@ const Navbar = () => {
                             navmenu
                         }
 
-                        <div>
-                            <Link to={'/authentication/login'}><button className='bg-red-700 text-white font-poppins px-8 py-2 rounded-md text-sm hover:bg-red-800 active:scale-95'>Login</button></Link>
-                        </div>
+                        {
+                            user ? <>
+                                <Link id="clickable" to={'/my-profile'} className="bg-white rounded-full border-b border-red-800 p-1"><img src={user?.photoURL ? user.photoURL : userDefaultImage} className="w-8 rounded-full" title={user.displayName} alt="" /></Link>
+                                <Tooltip anchorSelect="#clickable" clickable>
+                                    <div className="flex flex-col gap-2 items-center justify-center py-2">
+                                        <p>{user.displayName}</p>
+                                        <button onClick={logOut} className="px-5 py-1 bg-red-800 hover:bg-red-700 active:scale-95 text-white rounded-full">Sign Out</button>
+                                    </div>
+                                </Tooltip>
+                            </>
+
+                                :
+                                <div>
+                                    <Link to={'/authentication/login'}><button className='bg-red-700 text-white font-poppins px-8 py-2 rounded-md text-sm hover:bg-red-800 active:scale-95'>Login</button></Link>
+                                </div>
+                        }
                     </div>
                     <div onClick={handleDropdown} className='md:hidden flex items-center justify-end hover:cursor-pointer'>
                         {
@@ -73,12 +90,18 @@ const Navbar = () => {
                     ref={dropRef}
                     className="absolute md:hidden top-14 right-0 z-20 w-48 py-2 mt-2 origin-top-right bg-white rounded-b-md shadow-xl dark:bg-gray-800 transition ease-out duration-1000 transform opacity-100 scale-100"
                 >
-                    <div className="flex justify-end">
+                    <div className="flex justify-end gap-5">
                         <DarkMode />
+                        {
+                            user ? <></> :
+                                <div>
+                                    <Link to={'/authentication/login'}><button className='bg-red-700 text-white font-poppins px-8 py-2 rounded-md text-sm hover:bg-red-800 active:scale-95'>Login</button></Link>
+                                </div>
+                        }
                     </div>
                     {
                         user ? <NavLink
-                            to={'/myprofile'}
+                            to={'/my-profile'}
                             className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                         >
                             view profile
@@ -105,7 +128,7 @@ const Navbar = () => {
                         Contact Us
                     </NavLink>
                     <NavLink
-                        href="#"
+                        onClick={logOut()}
                         className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                         Sign Out
