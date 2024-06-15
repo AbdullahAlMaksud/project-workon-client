@@ -3,15 +3,41 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { TbUsersGroup } from 'react-icons/tb';
 import { MdOutlinePayments, MdOutlineWorkHistory } from 'react-icons/md';
 import { GiProgression } from 'react-icons/gi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
 import Sidebar from '../Pages/Dashboard/Sidebar';
+import useAuth from '../hook/useAuth';
+import { axiosNormal } from '../hook/useAxiosNormal';
 
 const DashboardLayout = () => {
+    const { user } = useAuth()
+    const email = user.email;
+    console.log(email)
+    const [role, setRole] = useState();
 
-    const role = 'employee'
-    // const role = 'hr'
-    // const role = 'admin'
+    useEffect(() => {
+        const userRole = async () => {
+            try {
+                const response = await axiosNormal.get(`/user/role`, {
+                    params: { email }
+                });
+                setRole(response.data.role);
+                // setError('');
+            } catch (error) {
+                setRole('');
+                console.log(error)
+                // setError(error.response ? error.response.data.message : error.message);
+            }
+        }
+        userRole()
+    }, [email])
+
+    console.log(role)
+
+
+    // const role = 'employee'
+    // // const role = 'hr'
+    // // const role = 'admin'
 
     const [isOpen, setIsOpen] = useState(false)
     const handleOpen = () => {

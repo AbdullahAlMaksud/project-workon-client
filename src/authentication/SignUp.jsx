@@ -94,7 +94,7 @@ const SignUp = () => {
         const form = e.target;
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
-        const imageURL = photoUrl;
+        const photoURL = photoUrl;
         const phoneNumber = form.phoneNumber.value;
         const email = form.email.value;
         const password = form.password.value;
@@ -106,18 +106,17 @@ const SignUp = () => {
         const salary = {};
         const name = firstName + lastName;
         console.log(name)
-        const userData = { role, firstName, lastName, email, phoneNumber, imageURL, isVerified, bank_account_no, salary, designation }
+        const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
 
         if (password !== confirmPassword) {
             const abd = () => toast.error('Password does not match!')
             return abd()
         }
-        // console.log("after password match:", userData);
 
         try {
             const result = await registerWithEmailAndPassword(email, password)
-            await updateUserInfo(name, imageURL)
-            setUser({ ...result?.user, photoURL: imageURL, displayName: name })
+            await updateUserInfo(name, photoURL)
+            setUser({ ...result?.user, photoURL: photoURL, displayName: name })
             await axiosNormal.post('/users', userData)
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
@@ -179,7 +178,7 @@ const SignUp = () => {
                                     </svg>
                                     <span className="mx-2">Employee</span>
                                 </button>
-                                <button onClick={() => handleUserRole('HR Officer')} className={selectedButton === 'HR Officer' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none"}>
+                                <button onClick={() => handleUserRole('hr')} className={selectedButton === 'hr' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none"}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="w-6 h-6"

@@ -1,18 +1,42 @@
 import { FcCurrencyExchange, FcWorkflow } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hook/useAuth";
+import useAxiosNormal from "../../../hook/useAxiosNormal";
+import { useEffect, useState } from "react";
 
 
 const EmployeeHome = () => {
-    const user = { role: 'Empolyee', firstName: 'Maksud' }
-    // const user = { role: 'HR Officer', firstName: 'Maksud' }
-    // const user = { role: 'Admin', firstName: 'Maksud' }
+    const { user } = useAuth()
+    const email = user?.email;
+    const axiosNormal = useAxiosNormal();
+    const [role, setRole] = useState();
+
+    useEffect(() => {
+        const userRole = async () => {
+            try {
+                const response = await axiosNormal.get(`/user/role/`, {
+                    params: { email }
+                });
+                setRole(response.data.role);
+                // setError('');
+            } catch (error) {
+                setRole('');
+                console.log(error)
+                // setError(error.response ? error.response.data.message : error.message);
+            }
+        }
+        userRole()
+    }, [email, axiosNormal])
+
+    console.log(role)
+
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
             <div>
-                <h2 className="font-poppins text-3xl"> Welcome, {`${user.firstName}!` || 'Buddy!'}</h2>
+                <h2 className="font-poppins text-3xl"> Welcome, {`${user.displayName}!` || 'Buddy!'}</h2>
 
-                <p className={user.role === "Empolyee" && "bg-green-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-green-800" || user.role === "HR Officer" && "bg-orange-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-orange-800" || user.role === "Admin" && "bg-red-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-red-800"} >{
-                    `${user.role}`
+                <p className={role === "employee" && "bg-green-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-green-800 capitalize" || role === "hr" && "bg-orange-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-orange-500 capitalize" || role === "admin" && "bg-red-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-red-800 capitalize"} >{
+                    `${role}`
                 }</p>
             </div>
 

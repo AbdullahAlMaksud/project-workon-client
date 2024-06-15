@@ -34,7 +34,7 @@ const SignIn = () => {
                 const phoneNumber = user.phoneNumber;
                 const email = user.email;
                 const isVerified = false;
-                const role = 'Employee';
+                const role = 'employee';
                 const designation = "";
                 const bank_account_no = "";
                 const salary = {};
