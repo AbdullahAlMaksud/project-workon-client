@@ -15,8 +15,6 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
     console.log(user)
 
-
-
     const handleDropdown = () => {
         setIsOpen(!isOpen)
         console.log(isOpen)
@@ -27,6 +25,8 @@ const Navbar = () => {
             setIsOpen(false);
         }
     };
+
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
 
     return (
 
-        <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-slate-50/60 backdrop-blur-md min-h-16 flex items-center justify-center'>
+        <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-transparent backdrop-blur-md min-h-16 flex items-center justify-center'>
             <section className='w-11/12 container mx-auto'>
                 <div className='w-full flex justify-between md:grid md:grid-cols-3'>
                     <Link to={'/'} className='col-span-1 w-fit relative hover:bg-gray-300 px-2 py-1 rounded-lg active:scale-95'>

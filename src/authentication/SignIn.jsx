@@ -1,94 +1,118 @@
-import { useContext } from "react";
 import { GiSeatedMouse } from "react-icons/gi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
 import useAxiosNormal from "../hook/useAxiosNormal";
 import toast from "react-hot-toast";
+import useAuth from "../hook/useAuth";
+import { useEffect } from "react";
 
 const SignIn = () => {
     const axiosNormal = useAxiosNormal();
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state || '/'
-
     const {
-        registerWithEmailAndPassword,
-        setUser,
-        updateUserInfo,
         user,
-        loading,
         logInWithEmailAndPassword,
         signInWithGoogole,
-    } = useContext(AuthContext)
+    } = useAuth();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [navigate, user])
 
 
-
-
-
-
-    const handleGoogleSignUp = () => {
-        signInWithGoogole()
-            .then(res => {
-                console.log(res.user)
-                if (res.user) {
-                    const tost = () => toast.success('Login Successfull')
-                    tost();
-                }
-                const user = res.user
+    const handleGoogleSignUp = async () => {
+        try {
+            const result = await signInWithGoogole();
+            console.log(result.user)
+            if (result.user) {
+                const user = result.user;
                 const name = user.displayName;
                 const photoURL = user.photoURL;
                 const phoneNumber = user.phoneNumber;
-                // const firstName = form.firstName.value;
-                // const lastName = form.lastName.value;
                 const email = user.email;
                 const isVerified = false;
                 const role = 'Employee';
                 const designation = "";
                 const bank_account_no = "";
                 const salary = {};
-                console.log(name)
                 const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
+                await axiosNormal.post('/users', userData)
+                    .then(res => {
+                        // const tost = () => toast.success('Login Successfull')
+                        // tost();
+                        console.log(res)
+                    })
+                    .catch(err => console.log(err))
+            }
+            toast.success('Log In Successfully')
+            navigate(from, { replace: true })
+        }
+        catch (error) {
+            console.log(error)
+            toast.error(error?.message)
+        }
 
-                try {
-                    axiosNormal.post('/users', userData)
-                        .then(res => console.log(res))
-                        .catch(err => console.log(err))
-                    navigate(from, { replace: true })
-                }
-                catch (error) {
-                    console.log(error);
-                    toast.error(error.messege);
-                }
+        // const result = await signInWithGoogole()
+        // console.log(result.user)
+        //     .then((res) => {
+        //         console.log(res.user)
+        //         const user = res.user
+        //         const name = user.displayName;
+        //         const photoURL = user.photoURL;
+        //         setUser({ ...result?.user, photoURL, displayName })
+        //         const phoneNumber = user.phoneNumber;
+        //         const email = user.email;
+        //         const isVerified = false;
+        //         const role = 'Employee';
+        //         const designation = "";
+        //         const bank_account_no = "";
+        //         const salary = {};
+        //         const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
 
-            })
-            .then(error => console.log(error))
-
+        //         axiosNormal.post('/users', userData)
+        //             .then(res => {
+        //                 const tost = () => toast.success('Login Successfull')
+        //                 tost();
+        //                 console.log(res)
+        //             })
+        //             .catch(err => console.log(err))
+        //         navigate(from, { replace: true })
+        //     })
+        //     .then(error => {
+        //         console.log(error)
+        //         const tost = () => toast.error(error.message)
+        //         tost();
+        //     })
     }
-
 
     const handleLogin = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password)
 
         try {
-            await logInWithEmailAndPassword(email, password)
-                // await updateUserInfo(name, imageURL)
-                // setUser({ ...result?.user, photoURL: user?.photoURL, displayName: user.displayName })
-                // await axiosNormal.post('/users', userData)
-                .then(res => {
-                    console.log(res.user)
-                })
-                .catch(err => console.log(err))
+            const result = await logInWithEmailAndPassword(email, password)
+            console.log(result.user)
+
+            const { data } = await axiosNormal.post('/jwt',
+                {
+                    email: result?.user?.email,
+                },
+                { withCredentials: true }
+            )
+            console.log(data)
             navigate(from, { replace: true })
-            toast.success('Login SuccessFully!')
+            toast.success('Login Successful')
         }
-        catch (error) {
-            console.log(error);
-            toast.error(error.messege);
+        catch (err) {
+            console.log(err)
+            toast.error(err.message)
         }
     }
+
 
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
