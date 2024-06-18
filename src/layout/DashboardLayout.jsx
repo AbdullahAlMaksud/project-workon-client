@@ -3,15 +3,18 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { TbUsersGroup } from 'react-icons/tb';
 import { MdOutlinePayments, MdOutlineWorkHistory } from 'react-icons/md';
 import { GiProgression } from 'react-icons/gi';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
 import Sidebar from '../Pages/Dashboard/Sidebar';
-import useAuth from '../hook/useAuth';
+// import useAuth from '../hook/useAuth';
 import { axiosNormal } from '../hook/useAxiosNormal';
+import { AuthContext } from '../provider/AuthProvider';
 
 const DashboardLayout = () => {
-    const { user } = useAuth()
-    const email = user.email;
+    // const user = useAuth()
+    // const email = user?.email;
+    const { user } = useContext(AuthContext)
+    const email = user?.email
     console.log(email)
     const [role, setRole] = useState();
 

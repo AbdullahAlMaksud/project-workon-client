@@ -33,7 +33,7 @@ const EmployeeHome = () => {
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
             <div>
-                <h2 className="font-poppins text-3xl"> Welcome, {`${user.displayName}!` || 'Buddy!'}</h2>
+                <h2 className="font-poppins text-3xl"> Welcome, {`${user?.displayName}!` || 'Buddy!'}</h2>
 
                 <p className={role === "employee" && "bg-green-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-green-800 capitalize" || role === "hr" && "bg-orange-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-orange-500 capitalize" || role === "admin" && "bg-red-100 w-fit px-5 rounded-full mt-2 font-poppins text-sm py-0.5 text-red-800 capitalize"} >{
                     `${role}`
