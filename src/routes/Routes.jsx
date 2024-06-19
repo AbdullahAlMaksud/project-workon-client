@@ -10,6 +10,9 @@ import WorkSheet from "../Pages/Dashboard/Empolyee/WorkSheet/WorkSheet";
 import PaymentHistory from "../Pages/Dashboard/Empolyee/PaymentHistory/PaymentHistory";
 import Authentication from "../authentication/Authentication";
 import DashboardLayout from "../layout/DashboardLayout";
+import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList ";
+import EmployeeDetails from "../Pages/Dashboard/Hr/EmployeeDetails";
+// import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 
 
 const router = createBrowserRouter([
@@ -37,7 +40,6 @@ const router = createBrowserRouter([
         ]
 
       },
-
       {
         path: '/contact',
         element: <Contact />
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/payment-history',
             element: <PaymentHistory />
+          },
+          {
+            path: '/dashboard/employee-list',
+            element: <EmployeeList />
+          },
+          {
+            path: `/dashboard/details/:id`,
+            element: <EmployeeDetails />
           }
         ]
       }

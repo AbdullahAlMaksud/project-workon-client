@@ -4,7 +4,7 @@ import { BiCross, BiMenu, BiUser } from 'react-icons/bi';
 import { useContext, useEffect, useRef, useState } from "react";
 import DarkMode from "../utilities/DarkMode";
 import { AuthContext } from "../provider/AuthProvider";
-import userDefaultImage from '../../public/user.svg'
+import userDefaultImage from '../../public/user.png'
 import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
@@ -62,7 +62,7 @@ const Navbar = () => {
 
                         {
                             user ? <>
-                                <Link id="clickable" to={'/my-profile'} className="bg-white rounded-full border-b border-red-800 p-1"><img src={user?.photoURL ? user.photoURL : userDefaultImage} className="w-8 rounded-full" title={user.displayName} alt="" /></Link>
+                                <Link id="clickable" to={'/my-profile'} className="bg-white rounded-full border-b border-red-800 p-1"><img src={user?.photoURL ? user.photoURL : userDefaultImage} className="w-8 min-h-8 rounded-full" title={user.displayName} alt="" /></Link>
                                 <Tooltip anchorSelect="#clickable" clickable>
                                     <div className="flex flex-col gap-2 items-center justify-center py-2">
                                         <p>{user.displayName}</p>

@@ -35,8 +35,7 @@ const DashboardLayout = () => {
         userRole()
     }, [email])
 
-    console.log(role)
-
+    console.log('Role', role)
 
     // const role = 'employee'
     // // const role = 'hr'
