@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import PaymentModal from './PaymentModal';
 import { Link } from 'react-router-dom';
-import useAxiosNormal, { axiosNormal } from '../../../hook/useAxiosNormal';
+import useAxiosNormal from '../../../hook/useAxiosNormal';
+
 
 const EmployeeList = () => {
     const axiosNormal = useAxiosNormal();
     const [employees, setEmployees] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-    useEffect(() => {
-        const fetchEmployees = async () => {
-            try {
-                const { data } = await axiosNormal.get('/users');
-                setEmployees(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchEmployees = async () => {
+        try {
+            const { data } = await axiosNormal.get('/employees');
+            setEmployees(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchEmployees();
-    }, [axiosNormal]);
+    }, []);
 
     const handleVerify = async (userId) => {
         try {
@@ -43,14 +45,15 @@ const EmployeeList = () => {
         try {
             await axios.post(`/users/pay`, { userId, amount, month, year });
             setSelectedEmployee(null);
+            fetchEmployees(); // Refetch employees after payment
         } catch (err) {
             setError(err.message);
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (isLoading) return <div>Loading...</div>;
     if (error) return <div>An error occurred: {error}</div>;
-    console.log('Employee', employees)
+
 
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
@@ -80,7 +83,19 @@ const EmployeeList = () => {
                                                 scope="col"
                                                 className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Users Verified
+                                                Verified
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                                            >
+                                                Bank Account
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                                            >
+                                                Salary
                                             </th>
                                             <th
                                                 scope="col"
@@ -95,18 +110,26 @@ const EmployeeList = () => {
 
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                                        {employees?.map((employee) => <tr className="h-10 border-b dark:border-gray-50/10 text-center px-4 py-4 text-sm font-regular whitespace-nowrap" key={employee._id}><td className="px-4 py-4 text-sm font-regular whitespace-nowrap">{employee.name}</td><td className="px-4 py-4 text-sm font-regular whitespace-nowrap">{employee.email}</td><td className="px-4 py-4 text-sm font-regular whitespace-nowrap">{employee.isVerified ? '✅' : '❌'}</td><td className="px-4 py-4 text-sm font-regular whitespace-nowrap">
-                                            <div className='flex justify-between'>
-                                                <button className='bg-red-800 text-white px-3 py-1 rounded' onClick={() => handleVerify(employee._id)}>
-                                                    {employee.isVerified ? 'Unverify' : 'Verify'}
-                                                </button>
-                                                <button className='bg-green-600 px-3 py-1 rounded mx-1 hover:bg-green-700 hover:text-white' onClick={() => setSelectedEmployee(employee)}>Pay</button>
-                                                <Link className='bg-yellow-500 rounded px-2 py-1' to={`/details/${employee._id}`}>View Details</Link>
-                                            </div>
-                                        </td>
-                                        </tr>
-                                        )}
+                                        {employees.map((employee) => (
+                                            <tr className='text-center text-sm h-9' key={employee._id}>
+                                                <td className='min-w-40'>{employee.name}</td>
+                                                <td>{employee.email}</td>
+                                                <td>
+                                                    <button className='' onClick={() => handleVerify(employee._id)}>
+                                                        {employee.isVerified ? '✅' : '❌'}
+                                                    </button>
+                                                </td>
+                                                <td>{employee.bank_account_no}</td>
+                                                <td>{employee.salary}</td>
+                                                <td>
+                                                    <div className='flex justify-center mx-2 gap-1'>
 
+                                                        <button className='bg-green-500 px-3 py-1 rounded hover:bg-green-800 hover:text-white hover:shadow-md hover:shadow-black/20' onClick={() => setSelectedEmployee(employee)}>Pay</button>
+                                                        <Link className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' to={`/details/${employee._id}`}>View Details</Link>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
 
 
                                     </tbody>
