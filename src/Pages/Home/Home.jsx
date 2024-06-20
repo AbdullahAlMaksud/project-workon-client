@@ -21,8 +21,7 @@ const Home = () => {
                             Updates
                         </h2>
                         <p className="mt-2 text-sm md:text-red-100 dark:text-gray-400 ">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur
-                            obcaecati odio
+                            Be the first to know about our latest projects, updates, and innovations.
                         </p>
                     </div>
                 </div>

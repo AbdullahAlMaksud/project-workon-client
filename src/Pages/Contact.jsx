@@ -11,7 +11,7 @@ const Contact = () => {
                         <div>
                             <div className="flex flex-col justify-center items-center mb-6">
                                 <h2 className="text-white dark:text-gray-950 bg-red-700 px-5 py-1 -rotate-2 font-bold text-3xl text-center">Contact Info</h2>
-                                <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">Feel free get in touch with us!</p>
+                                <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">Reach out to us at WorkOn! Whether you have questions, feedback, or want to collaborate, we’re here for you. Let’s make great things happen together!</p>
                             </div>
 
                             <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
@@ -56,8 +56,9 @@ const Contact = () => {
 
                         <div>
                             <div className="flex flex-col justify-center items-center mb-6 mt-10">
-                                <h2 className="text-white dark:text-gray-950 bg-red-700 px-5 py-1 -rotate-2 font-bold text-2xl md:text-3xl text-center">Where we are?</h2>
-                                <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
+                                <h2 className="text-white dark:text-gray-950 bg-red-700 px-5 py-1 -rotate-2 font-bold text-2xl md:text-3xl text-center">Discover Our Location</h2>
+                                <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">
+                                    At WorkOn, we’re strategically positioned to serve you better. Explore our physical presence and connect with us wherever you are. 🌎</p>
                             </div>
                             <div className="mb-4">
                                 <iframe
@@ -75,7 +76,7 @@ const Contact = () => {
                         </div>
                         <div className="flex flex-col justify-center items-center mb-6 mt-10">
                             <h2 className="text-white bg-red-700 px-5 py-1 -rotate-2 font-bold text-2xl md:text-3xl text-center dark:text-gray-950">Anything to say?</h2>
-                            <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
+                            <p className="md:w-2/3 text-center text-sm pt-3 dark:text-gray-100">At WorkOn, your voice matters. Share your thoughts, feedback, or inquiries with us. We’re all ears! 🗣️</p>
                         </div>
                         <form className='rounded-xl lg:p-10'>
                             <div className="mb-4">

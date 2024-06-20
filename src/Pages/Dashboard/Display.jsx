@@ -1,4 +1,4 @@
-import AdminHome from './HomeAdmin';
+import AdminHome from './Admin/HomeAdmin';
 import HrHome from './Hr/HrHome';
 import EmployeeHome from './Empolyee/EmployeeHome';
 import { useContext, useEffect, useState } from 'react';

@@ -1,63 +1,104 @@
-import React, { useEffect, useState } from 'react';
-// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import axios from 'axios';
-import PaymentModal from './PaymentModal';
-import { Link } from 'react-router-dom';
-import useAxiosNormal from '../../../hook/useAxiosNormal';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
+// Fetch work records function
+const fetchWorkRecords = async ({ queryKey }) => {
+    const [, filters] = queryKey;
+    try {
+        const res = await axios.get('http://localhost:5000/work-records', { params: filters });
+        return res.data;
+    } catch (error) {
+        console.error('Error fetching work records:', error);
+        throw new Error('Error fetching work records');
+    }
+};
 
-const EmployeeList = () => {
-    const axiosNormal = useAxiosNormal();
-    const [employees, setEmployees] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [selectedEmployee, setSelectedEmployee] = useState(null);
+// Fetch employees function
+const fetchEmployees = async () => {
+    try {
+        const res = await axios.get('http://localhost:5000/employees');
+        return res.data;
+    } catch (error) {
+        console.error('Error fetching employees:', error);
+        throw new Error('Error fetching employees');
+    }
+};
 
-    const fetchEmployees = async () => {
-        try {
-            const { data } = await axiosNormal.get('/employees');
-            setEmployees(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setIsLoading(false);
-        }
+// Update work record function
+const updateWorkRecord = async ({ id, updates }) => {
+    const res = await axios.patch(`http://localhost:5000/work-records/${id}`, updates);
+    return res.data;
+};
+
+const Progress = () => {
+    const queryClient = useQueryClient();
+    const [filters, setFilters] = useState({ employeeName: '', month: '' });
+
+    // useQuery hook to fetch work records
+    const { data: workRecords, isLoading, error } = useQuery({
+        queryKey: ['workRecords', filters],
+        queryFn: fetchWorkRecords,
+    });
+
+    // useQuery hook to fetch employees
+    const { data: employees } = useQuery({
+        queryKey: ['employees'],
+        queryFn: fetchEmployees,
+    });
+
+    // useMutation hook to update a work record
+    const mutation = useMutation({
+        mutationFn: updateWorkRecord,
+        onSuccess: () => {
+            // Invalidate and refetch work records query after a record is updated
+            queryClient.invalidateQueries(['workRecords']);
+            toast.success('Work record updated successfully!');
+        },
+    });
+
+    // Handle filter change
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prev) => ({ ...prev, [name]: value }));
     };
 
-    useEffect(() => {
-        fetchEmployees();
-    }, []);
-
-    const handleVerify = async (userId) => {
-        try {
-            await axiosNormal.post(`/users/verify/${userId}`);
-            setEmployees((prev) =>
-                prev.map((emp) =>
-                    emp._id === userId ? { ...emp, isVerified: !emp.isVerified } : emp
-                )
-            );
-        } catch (err) {
-            setError(err.message);
-        }
+    // Handle work record update
+    const handleUpdate = (id, updates) => {
+        mutation.mutate({ id, updates });
     };
 
-    const handlePay = async (userId, amount, month, year) => {
-        try {
-            await axios.post(`/users/pay`, { userId, amount, month, year });
-            setSelectedEmployee(null);
-            fetchEmployees(); // Refetch employees after payment
-        } catch (err) {
-            setError(err.message);
-        }
-    };
-
+    // Loading and error states
     if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>An error occurred: {error}</div>;
-
+    if (error) return <div>Error fetching work records: {error.message}</div>;
 
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
-            <h2 className='text-center font-semibold font-poppins text-red-800 text-4xl py-10'>Employee List</h2>
+            <h1 className='text-center font-semibold font-poppins text-red-800 text-4xl py-10'>Work Records</h1>
+            <div className='flex gap-2'>
+                <label className='flex flex-col'>
+                    Employee Name:
+                    <select name="employeeName" value={filters.employeeName} onChange={handleFilterChange} className="border p-2 rounded">
+                        <option value="">All</option>
+                        {employees?.map((employee) => (
+                            <option key={employee._id} value={employee.name}>
+                                {employee.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <label className='flex flex-col'>
+                    Month:
+                    <input
+                        type="month"
+                        name="month"
+                        value={filters.month}
+                        onChange={handleFilterChange}
+                        className="border p-2 rounded"
+                    />
+                </label>
+            </div>
 
 
             <section className="container mx-auto">
@@ -73,31 +114,32 @@ const EmployeeList = () => {
                                                 scope="col"
                                                 className="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500  dark:text-gray-400"
                                             >
-                                                <h3>Name</h3>
+                                                <h3>Employee Name</h3>
                                             </th>
+
                                             <th
                                                 scope="col"
-                                                className="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                                                className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Email
+                                                Work Name
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Verified
+                                                Date
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Bank Account
+                                                Hours
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Salary
+                                                Status
                                             </th>
                                             <th
                                                 scope="col"
@@ -112,23 +154,19 @@ const EmployeeList = () => {
 
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                                        {employees.map((employee) => (
-                                            <tr className='text-center text-sm h-9' key={employee._id}>
-                                                <td className='min-w-40'>{employee.name}</td>
-                                                <td>{employee.email}</td>
-                                                <td>
-                                                    <button className='' onClick={() => handleVerify(employee._id)}>
-                                                        {employee.isVerified ? '✅' : '❌'}
-                                                    </button>
-                                                </td>
-                                                <td>{employee.bank_account_no}</td>
-                                                <td>{employee.salary}</td>
-                                                <td>
-                                                    <div className='flex justify-center mx-2 gap-1'>
 
-                                                        <button className='bg-green-500 px-3 py-1 rounded hover:bg-green-800 hover:text-white hover:shadow-md hover:shadow-black/20' onClick={() => setSelectedEmployee(employee)}>Pay</button>
-                                                        <Link className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' to={`/details/${employee._id}`}>View Details</Link>
-                                                    </div>
+
+                                        {workRecords?.map((record) => (
+                                            <tr className='text-center text-sm h-9' key={record._id}>
+                                                <td>{record.userName}</td>
+                                                <td>{record.task}</td>
+                                                <td>{new Date(record.date).toLocaleDateString()}</td>
+                                                <td>{record.hoursWorked} Hours</td>
+                                                <td>{record.status}</td>
+                                                <td>
+                                                    <button className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' onClick={() => handleUpdate(record._id, { status: 'completed' })}>
+                                                        Mark as Completed
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -136,13 +174,6 @@ const EmployeeList = () => {
 
                                     </tbody>
                                 </table>
-                                {selectedEmployee && (
-                                    <PaymentModal
-                                        employee={selectedEmployee}
-                                        onClose={() => setSelectedEmployee(null)}
-                                        onPay={handlePay}
-                                    />
-                                )}
                             </div>
                         </div>
                     </div>
@@ -238,5 +269,4 @@ const EmployeeList = () => {
     );
 };
 
-export default EmployeeList;
-
+export default Progress;

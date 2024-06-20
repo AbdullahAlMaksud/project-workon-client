@@ -80,7 +80,7 @@ const OurServices = () => {
         <div className="w-11/12 container mx-auto">
             <div className="flex flex-col justify-center items-center mb-6">
                 <h2 className="text-white bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center dark:text-slate-950">Our Services</h2>
-                <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
+                <p className="md:w-2/3 text-center text-sm pt-3 opacity-70">Crafting digital solutions tailored to your needs! From web development to SEO optimization, we’ve got you covered. Let’s transform your vision into reality!</p>
             </div>
 
 

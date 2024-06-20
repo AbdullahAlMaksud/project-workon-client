@@ -86,7 +86,7 @@ const TestimonialSection = () => {
                 <div className="container w-11/12 mx-auto">
                     <div className="flex flex-col justify-center items-center mb-6">
                         <h2 className="text-white dark:text-slate-950 bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">What Our Client Say?</h2>
-                        <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
+                        <p className="md:w-2/3 text-center text-sm pt-3 opacity-70">At WorkOn, we’re committed to delivering exceptional solutions that meet your unique needs.</p>
                     </div>
 
                     <div className='md:hidden shadow-md shadow-black/20 rounded-sm'>

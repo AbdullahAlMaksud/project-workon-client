@@ -12,6 +12,9 @@ import Authentication from "../authentication/Authentication";
 import DashboardLayout from "../layout/DashboardLayout";
 import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList ";
 import EmployeeDetails from "../Pages/Dashboard/Hr/EmployeeDetails";
+import Progress from "../Pages/Dashboard/Hr/Progress";
+import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
+import Profile from "../authentication/Profile";
 // import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 
 
@@ -24,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/my-profile',
+        element: <Profile />
       },
       {
         path: '/authentication',
@@ -67,7 +74,17 @@ const router = createBrowserRouter([
           {
             path: `/dashboard/details/:id`,
             element: <EmployeeDetails />
-          }
+          },
+          {
+            path: `/dashboard/progress`,
+            element: <Progress />
+          },
+
+          {
+            path: `/dashboard/all-employee-list`,
+            element: <AllEmployeeList />
+          },
+
         ]
       }
     ]

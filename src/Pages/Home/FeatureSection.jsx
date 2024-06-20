@@ -37,7 +37,7 @@ const FeatureSection = () => {
                 <div className="container w-11/12 mx-auto">
                     <div className="flex flex-col justify-center items-center mb-6">
                         <h2 className="text-white dark:text-slate-950 bg-red-700 px-5 py-1 mb-2 -rotate-2 font-bold text-3xl text-center">Our Feature</h2>
-                        <p className="md:w-2/3 text-center text-sm pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea itaque vitae quasi, possimus veniam aut.</p>
+                        <p className="md:w-2/3 text-center text-sm pt-3 opacity-70">At WorkOn, we’ve curated a set of powerful features designed to enhance your experience. Dive in and discover what sets us apart!</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 

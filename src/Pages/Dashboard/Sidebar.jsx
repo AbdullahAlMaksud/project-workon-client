@@ -3,8 +3,12 @@ import { TbSmartHome } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import useAuth from "../../hook/useAuth";
 
 const Sidebar = ({ mainMenu }) => {
+
+    const { user, logOut } = useAuth();
+    console.log(user)
 
     return (
         <div className=' bg-red-700 rounded-b-xl shadow-black/70 dark:shadow-gray-800 shadow-xl dark:shadow-md min-w-48 pt-16'>
@@ -29,7 +33,7 @@ const Sidebar = ({ mainMenu }) => {
                         <TbSmartHome />
                         Home
                     </Link>
-                    <button className="flex items-center gap-3 py-1 px-6 hover:bg-gray-800/10 w-full">
+                    <button onClick={logOut} className="flex items-center gap-3 py-1 px-6 hover:bg-gray-800/10 w-full">
                         <VscSignOut />
                         Sign Out
                     </button>
