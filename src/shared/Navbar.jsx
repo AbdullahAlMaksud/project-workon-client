@@ -47,14 +47,14 @@ const Navbar = () => {
 
     return (
 
-        <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-transparent backdrop-blur-md min-h-16 flex items-center justify-center'>
+        <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-red-800 min-h-16 flex items-center justify-center'>
             <section className='w-11/12 container mx-auto'>
                 <div className='w-full flex justify-between md:grid md:grid-cols-3'>
                     <Link to={'/'} className='col-span-1 w-fit relative hover:bg-gray-300 px-2 py-1 rounded-lg active:scale-95'>
-                        <h1 className='text-3xl font-black w-fit  font-raleway'><span className='text-red-700'>W</span>ork<span className='text-red-700'>on</span></h1>
-                        <GiSeatedMouse className='absolute -right-2 -top-1 text-red-800' />
+                        <h1 className='text-3xl text-white font-black w-fit  font-raleway'><span className='text-black'>W</span>ork<span className='text-black'>on</span></h1>
+                        <GiSeatedMouse className='absolute -right-2 -top-1 text-white' />
                     </Link>
-                    <div className='hidden col-span-2 md:flex justify-end items-center gap-7'>
+                    <div className='hidden text-white col-span-2 md:flex justify-end items-center gap-7'>
 
                         {
                             navmenu
