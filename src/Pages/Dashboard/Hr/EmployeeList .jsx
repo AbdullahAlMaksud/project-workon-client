@@ -66,7 +66,6 @@ const EmployeeList = () => {
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-
                                     <thead className="bg-gray-50 dark:bg-gray-800">
                                         <tr>
                                             <th
@@ -127,7 +126,7 @@ const EmployeeList = () => {
                                                     <div className='flex justify-center mx-2 gap-1'>
 
                                                         <button className='bg-green-500 px-3 py-1 rounded hover:bg-green-800 hover:text-white hover:shadow-md hover:shadow-black/20' onClick={() => setSelectedEmployee(employee)}>Pay</button>
-                                                        <Link className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' to={`/details/${employee._id}`}>View Details</Link>
+                                                        <Link className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' to={`/dashboard/details/${employee._id}`}>View Details</Link>
                                                     </div>
                                                 </td>
                                             </tr>

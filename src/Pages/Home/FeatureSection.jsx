@@ -1,35 +1,28 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Icons from 'react-icons/md';
-// import { MdWorkspacePremium, MdCheckBox, MdHelpCenter, MdOutlineAttachMoney } from 'react-icons/md';
+import useAxiosNormal from '../../hook/useAxiosNormal';
 
-
-const featuresData = [
-    {
-        id: 1,
-        title: "High Quality",
-        description: "We ensure the highest quality in all our services.",
-        icon: "MdWorkspacePremium",
-    },
-    {
-        id: 2,
-        title: "Reliability",
-        description: "Our services are reliable and trusted by numerous clients.",
-        icon: "MdCheckBox",
-    },
-    {
-        id: 3,
-        title: "24/7 Support",
-        description: "We provide round-the-clock support for all our clients.",
-        icon: "MdHelpCenter",
-    },
-    {
-        id: 4,
-        title: "Cost Effective",
-        description: "Our services are priced competitively to offer great value.",
-        icon: "MdOutlineAttachMoney",
-    },
-];
 
 const FeatureSection = () => {
+    const queryClient = useQueryClient()
+    const axiosNormal = useAxiosNormal();
+    const getFeature = async () => {
+        const res = await axiosNormal.get('/feature');
+        return res.data;
+    };
+    const { data: featuresData, isLoading, error } = useQuery({
+        queryKey: ['feature'],
+        queryFn: getFeature,
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error fetching carousel data: {error.message}</div>;
+    }
+
+    console.log(featuresData)
     return (
         <div>
 
@@ -45,7 +38,7 @@ const FeatureSection = () => {
                         {featuresData.map((feature) => {
                             const IconComponent = Icons[feature.icon];
                             return (
-                                <div key={feature.id} className="bg-gray-100 dark:bg-gray-800/50 p-6 rounded-lg shadow-lg text-center">
+                                <div key={feature.id} className="bg-gray-100 dark:bg-gray-800/50 p-6 text-center">
                                     <IconComponent className="text-purple-500 dark:text-orange-700 text-4xl mb-4 mx-auto" />
                                     <h3 className="text-xl dark:text-white font-bold mb-2">{feature.title}</h3>
                                     <p className="text-gray-700 dark:text-gray-300">{feature.description}</p>

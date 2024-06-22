@@ -5,6 +5,7 @@ import { GiSeatedMouse } from 'react-icons/gi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxiosNormal from '../hook/useAxiosNormal'; import { AuthContext } from '../provider/AuthProvider';
 import userImg from '../../public/user.svg'
+import { Helmet } from 'react-helmet-async';
 
 const SignUp = () => {
     const {
@@ -19,7 +20,7 @@ const SignUp = () => {
     const [photoUrl, setPhotoUrl] = useState();
     const [alerts, setAlerts] = useState();
     const [isChecked, setIsChecked] = useState(false);
-    const [selectedButton, setSelectedButton] = useState('Employee');
+    const [selectedButton, setSelectedButton] = useState('employee');
     const axiosNormal = useAxiosNormal();
     const navigate = useNavigate()
     const location = useLocation()
@@ -55,9 +56,6 @@ const SignUp = () => {
             console.log(data)
             setPhotoUrl(data.data.display_url)
             console.log(photoUrl)
-
-
-
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -94,18 +92,21 @@ const SignUp = () => {
         const form = e.target;
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
+        const name = `${firstName} ${lastName}`;
+
         const photoURL = photoUrl;
         const phoneNumber = form.phoneNumber.value;
         const email = form.email.value;
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
         const isVerified = false;
         const role = selectedButton;
-        const designation = "";
+        const designation = selectedButton;
         const bank_account_no = "";
-        const salary = {};
-        const name = firstName + lastName;
+        const salary = 0;
+
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
         console.log(name)
+
         const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
 
         if (password !== confirmPassword) {
@@ -135,6 +136,9 @@ const SignUp = () => {
 
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
+            <Helmet>
+                <title>WorkOn | Registration</title>
+            </Helmet>
             <div className="flex justify-center ">
                 <div
                     className="hidden bg-cover lg:block lg:w-2/5 rounded-xl shadow-md shadow-black/50"
@@ -161,7 +165,7 @@ const SignUp = () => {
                                 Select type of account
                             </h1>
                             <div className="mt-3 md:flex md:items-center md:-mx-2">
-                                <button onClick={() => handleUserRole('Employee')} className={selectedButton === 'Employee' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0"}>
+                                <button onClick={() => handleUserRole('Employee')} className={selectedButton === 'employee' ? "flex justify-center w-full px-6 py-3 text-white bg-red-700 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0" : "flex justify-center w-full px-6 py-3 text-white bg-gray-500 rounded-lg md:w-auto md:mx-2 focus:outline-none mb-2 md:mb-0"}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="w-6 h-6"

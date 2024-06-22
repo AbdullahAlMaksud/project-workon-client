@@ -4,6 +4,7 @@ import useAxiosNormal from "../hook/useAxiosNormal";
 import toast from "react-hot-toast";
 import useAuth from "../hook/useAuth";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const SignIn = () => {
     const axiosNormal = useAxiosNormal();
@@ -14,6 +15,7 @@ const SignIn = () => {
         user,
         logInWithEmailAndPassword,
         signInWithGoogole,
+        loading
     } = useAuth();
 
     useEffect(() => {
@@ -21,7 +23,6 @@ const SignIn = () => {
             navigate('/')
         }
     }, [navigate, user])
-
 
     const handleGoogleSignUp = async () => {
         try {
@@ -35,14 +36,12 @@ const SignIn = () => {
                 const email = user.email;
                 const isVerified = false;
                 const role = 'employee';
-                const designation = "";
+                const designation = "employee";
                 const bank_account_no = "";
-                const salary = {};
+                const salary = 0;
                 const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
                 await axiosNormal.post('/users', userData)
                     .then(res => {
-                        // const tost = () => toast.success('Login Successfull')
-                        // tost();
                         console.log(res)
                     })
                     .catch(err => console.log(err))
@@ -54,56 +53,17 @@ const SignIn = () => {
             console.log(error)
             toast.error(error?.message)
         }
-
-        // const result = await signInWithGoogole()
-        // console.log(result.user)
-        //     .then((res) => {
-        //         console.log(res.user)
-        //         const user = res.user
-        //         const name = user.displayName;
-        //         const photoURL = user.photoURL;
-        //         setUser({ ...result?.user, photoURL, displayName })
-        //         const phoneNumber = user.phoneNumber;
-        //         const email = user.email;
-        //         const isVerified = false;
-        //         const role = 'Employee';
-        //         const designation = "";
-        //         const bank_account_no = "";
-        //         const salary = {};
-        //         const userData = { role, name, email, phoneNumber, photoURL, isVerified, bank_account_no, salary, designation }
-
-        //         axiosNormal.post('/users', userData)
-        //             .then(res => {
-        //                 const tost = () => toast.success('Login Successfull')
-        //                 tost();
-        //                 console.log(res)
-        //             })
-        //             .catch(err => console.log(err))
-        //         navigate(from, { replace: true })
-        //     })
-        //     .then(error => {
-        //         console.log(error)
-        //         const tost = () => toast.error(error.message)
-        //         tost();
-        //     })
     }
 
     const handleLogin = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-
         try {
             const result = await logInWithEmailAndPassword(email, password)
+                .then(res => console.log(res))
+                .then(error => console.log(error))
             console.log(result.user)
-
-            const { data } = await axiosNormal.post('/jwt',
-                {
-                    email: result?.user?.email,
-                },
-                { withCredentials: true }
-            )
-            console.log(data)
             navigate(from, { replace: true })
             toast.success('Login Successful')
         }
@@ -113,9 +73,15 @@ const SignIn = () => {
         }
     }
 
+    if (user || loading) {
+        return
+    }
 
     return (
         <section className="bg-gray-100 lg:p-10 dark:bg-gray-900 rounded-2xl">
+            <Helmet>
+                <title>WorkOn | Login</title>
+            </Helmet>
             <div className="flex justify-center">
                 <div
                     className="hidden bg-cover lg:block lg:w-2/5 rounded-xl shadow-md shadow-black/50"

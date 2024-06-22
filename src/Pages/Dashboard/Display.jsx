@@ -3,13 +3,14 @@ import HrHome from './Hr/HrHome';
 import EmployeeHome from './Empolyee/EmployeeHome';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
-import { axiosNormal } from '../../hook/useAxiosNormal';
+import useAxiosNormal from '../../hook/useAxiosNormal';
 
 const Display = () => {
     const { user } = useContext(AuthContext)
     const email = user?.email
     console.log(email)
     const [role, setRole] = useState();
+    const axiosNormal = useAxiosNormal()
 
     useEffect(() => {
         const userRole = async () => {

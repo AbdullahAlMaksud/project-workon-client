@@ -1,8 +1,13 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import useAuth from '../hook/useAuth';
 
 const Authentication = () => {
+    const { user, loading } = useAuth();
 
+    if (user || loading) {
+        return
+    }
 
     return (
         <div className='container w-11/12 mx-auto my-10'>

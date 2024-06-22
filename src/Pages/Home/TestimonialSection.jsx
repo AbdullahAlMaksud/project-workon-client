@@ -5,81 +5,29 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 // Install Swiper modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-const testimonialsData = [
-    {
-        id: 1,
-        name: "John Doe",
-        position: "CEO, Company A",
-        testimonial: "This service has transformed our business. The team is amazing and the results speak for themselves.",
-        image: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6"
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        position: "Marketing Director, Company B",
-        testimonial: "The expertise and dedication of the team exceeded our expectations. Highly recommend!",
-        image: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126"
-    },
-    {
-        id: 3,
-        name: "Mike Johnson",
-        position: "Product Manager, Company C",
-        testimonial: "Excellent service and support. Our project was completed on time and within budget.",
-        image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce"
-    },
-    {
-        id: 4,
-        name: "Emily Davis",
-        position: "CTO, Company D",
-        testimonial: "Their attention to detail and quality is unparalleled. We are very satisfied with the results.",
-        image: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126"
-    },
-    {
-        id: 5,
-        name: "Chris Brown",
-        position: "COO, Company E",
-        testimonial: "Professional, reliable, and outstanding results. I couldn't ask for more.",
-        image: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61"
-    },
-    {
-        id: 6,
-        name: "Anna Wilson",
-        position: "HR Manager, Company F",
-        testimonial: "The team was very responsive and accommodating to our needs. Great experience!",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-    },
-    {
-        id: 7,
-        name: "David Lee",
-        position: "Sales Manager, Company G",
-        testimonial: "Innovative solutions and exceptional service. Our sales have increased significantly.",
-        image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
-    },
-    {
-        id: 8,
-        name: "Sophia Martinez",
-        position: "Finance Director, Company H",
-        testimonial: "Very professional and easy to work with. The results were beyond our expectations.",
-        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-    },
-    {
-        id: 9,
-        name: "James Taylor",
-        position: "Operations Manager, Company I",
-        testimonial: "High-quality service and outstanding results. We are very happy with the outcome.",
-        image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39"
-    },
-    {
-        id: 10,
-        name: "Olivia Anderson",
-        position: "Chief Designer, Company J",
-        testimonial: "Creative and professional team. They delivered exactly what we needed.",
-        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
-    }
-];
+import useAxiosNormal from '../../hook/useAxiosNormal';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const TestimonialSection = () => {
+    const queryClient = useQueryClient()
+    const axiosNormal = useAxiosNormal();
+    const getTestimonial = async () => {
+        const res = await axiosNormal.get('/testimonial');
+        return res.data;
+    };
+    const { data: testimonialsData, isLoading, error } = useQuery({
+        queryKey: ['testimonial'],
+        queryFn: getTestimonial,
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error fetching carousel data: {error.message}</div>;
+    }
+
+
     return (
         <div>
             <div className="pb-12">
@@ -91,9 +39,6 @@ const TestimonialSection = () => {
 
                     <div className='md:hidden shadow-md shadow-black/20 rounded-sm'>
                         <Swiper
-                            // slidesPerView={'auto'}
-                            // centeredSlides={true}
-                            // spaceBetween={30}
                             slidesPerView={1}
                             spaceBetween={25}
                             centeredSlides={true}
@@ -103,7 +48,6 @@ const TestimonialSection = () => {
                                 disableOnInteraction: false,
                             }}
                             pagination={{
-                                // clickable: true,
                                 dynamicBullets: true,
                             }}
                             navigation={false}
@@ -148,7 +92,7 @@ const TestimonialSection = () => {
                         >
                             {testimonialsData.map((testimonial) => (
                                 <SwiperSlide key={testimonial.id}>
-                                    <div className=" p-6 mb-10 h-60 rounded-lg shadow-lg bg-white dark:bg-gray-700/60">
+                                    <div className=" p-6 mb-10 h-60 rounded-lg bg-white dark:bg-gray-700/60">
                                         <div className="flex items-center mb-4">
                                             <img src={testimonial.image} alt={testimonial.name} className="w-16 h-20 rounded-full mr-4 object-cover" />
                                             <div>

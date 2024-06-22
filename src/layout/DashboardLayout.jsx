@@ -3,21 +3,20 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { TbUsersGroup } from 'react-icons/tb';
 import { MdOutlinePayments, MdOutlineWorkHistory } from 'react-icons/md';
 import { GiProgression } from 'react-icons/gi';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
 import Sidebar from '../Pages/Dashboard/Sidebar';
-// import useAuth from '../hook/useAuth';
-import { axiosNormal } from '../hook/useAxiosNormal';
-import { AuthContext } from '../provider/AuthProvider';
+import useAxiosNormal from '../hook/useAxiosNormal';
+import useAuth from '../hook/useAuth';
 
 const DashboardLayout = () => {
-    // const user = useAuth()
-    // const email = user?.email;
-    const { user } = useContext(AuthContext)
-    const email = user?.email
-    console.log(email)
-    const [role, setRole] = useState();
+    const [isOpen, setIsOpen] = useState(false)
 
+    const { user } = useAuth()
+    const email = user?.email
+    console.log('Email', email)
+    const [role, setRole] = useState();
+    const axiosNormal = useAxiosNormal();
     useEffect(() => {
         const userRole = async () => {
             try {
@@ -33,15 +32,9 @@ const DashboardLayout = () => {
             }
         }
         userRole()
-    }, [email])
-
+    }, [axiosNormal, email])
     console.log('Role', role)
 
-    // const role = 'employee'
-    // // const role = 'hr'
-    // // const role = 'admin'
-
-    const [isOpen, setIsOpen] = useState(false)
     const handleOpen = () => {
         setIsOpen(!isOpen)
     }
@@ -116,7 +109,7 @@ const DashboardLayout = () => {
 
 
                 <div className='flex min-h-[calc(100vh-304px)]'>
-                    <aside className={isOpen === true ? '-translate-y-0 -mt-16 flex duration-1000 ease-out ml-2 mb-5' : `-translate-y-[1000px] flex mt-16 duration-1000 ease-out`}>
+                    <aside className={isOpen === true ? '-translate-y-0 -mt-16 flex duration-1000 ease-out ml-2 mb-5' : `-translate-y-[1300px] flex mt-16 duration-1000 ease-out`}>
                         {
                             role === 'employee' && <Sidebar mainMenu={employeeMenu} />
                         }

@@ -1,7 +1,5 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import useAxiosNormal, { axiosNormal } from '../../../../hook/useAxiosNormal';
+import useAxiosNormal from '../../../../hook/useAxiosNormal';
 
 // const fetchPaymentHistory = async () => {
 //     const response = await axios.get('http://localhost:5000/payment-history');

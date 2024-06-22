@@ -1,87 +1,41 @@
-import { useEffect, useState } from 'react';
-import useAxiosNormal from './useAxiosNormal';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+// import useAxiosNormal from './useAxiosNormal';
 import useAuth from './useAuth';
-// import { useQuery } from '@tanstack/react-query';
+import useAxiosNormal from './useAxiosNormal';
+
+const fetchUserRole = async ({ queryKey }) => {
+    const [, email, axiosNormal] = queryKey;
+    const response = await axiosNormal.get('/user/role', {
+        params: { email },
+    });
+    return response.data.role;
+};
 
 const useRole = () => {
-    const { user } = useAuth()
+    const { user } = useAuth();
     const email = user?.email;
     const axiosNormal = useAxiosNormal();
-    const [role, setRole] = useState();
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const userRole = async () => {
-            try {
-                const response = await axiosNormal.get(`/user/role`, {
-                    params: { email }
-                });
-                setRole(response.data.role);
-                // setError('');
-            } catch (error) {
-                setRole('');
-                console.log(error)
-                // setError(error.response ? error.response.data.message : error.message);
-            }
-        }
-        userRole()
-    }, [email, axiosNormal])
+    const { data: role, error, isLoading } = useQuery({
+        queryKey: ['userRole', email, axiosNormal],
+        queryFn: fetchUserRole,
+        enabled: !!email, // Only run the query if email is not null
+        onError: (error) => {
+            console.error('Error fetching user role:', error);
+        },
+    });
 
-    console.log(role)
-    // const { data: role } = useQuery({
-    //     queryKey: [user?.email, 'role'],
-    //     queryFn: async () => {
-    //         const res = await axiosNormal.get(`/user/${user.email}`)
-    //         console.log(res.data)
-    //         return res.data
-    //     }
-    // })
-    return [role]
+    // Use queryClient for any additional query-related operations
+    // For example, you might want to prefetch some other queries or invalidate some queries
+    // queryClient.prefetchQuery('someOtherQueryKey', someOtherQueryFn);
+    // queryClient.invalidateQueries('someOtherQueryKey');
+
+    // You can handle loading and error states if needed
+    if (isLoading) return null; // or some loading component
+    if (error) return 'An error occurred'; // or an error component
+
+    return role;
 };
 
 export default useRole;
-
-
-// import { useQuery } from "@tanstack/react-query";
-// import useAuth from "./useAuth";
-// import useAxiosSecure from "./useAxiosSecure";
-// import useAxiosNormal from './useAxiosNormal';
-
-// const useAdmin = () => {
-//     const { user } = useAuth();
-//     const axiosSecure = useAxiosSecure()
-//     const { data: isAdmin, isPending: isAdminLoading } = useQuery({
-//         queryKey: [user?.email, 'isAdmin'],
-//         queryFn: async () => {
-//             const res = await axiosSecure.get(`/users/admin/${user.email}`)
-//             console.log(res.data)
-//             return res.data?.admin
-//         }
-//     })
-//     return [isAdmin]
-// };
-
-// export default useAdmin;
-
-
-//     const email = user.email;
-//     console.log(email)
-//     const [role, setRole] = useState();
-
-//     useEffect(() => {
-//         const userRole = async () => {
-//             try {
-//                 const response = await axiosNormal.get(`/user/role`, {
-//                     params: { email }
-//                 });
-//                 setRole(response.data.role);
-//                 // setError('');
-//             } catch (error) {
-//                 setRole('');
-//                 console.log(error)
-//                 // setError(error.response ? error.response.data.message : error.message);
-//             }
-//         }
-//         userRole()
-//     }, [email])
-
-//     console.log(role)

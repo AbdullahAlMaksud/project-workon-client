@@ -1,81 +1,26 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Icons from 'react-icons/fa';
-const servicesData = [
-    {
-        id: 1,
-        title: "Web Development",
-        description: "Creating responsive and robust websites tailored to your needs.",
-        icon: "FaLaptopCode"
-    },
-    {
-        id: 2,
-        title: "Mobile App Development",
-        description: "Designing user-friendly mobile applications for both Android and iOS platforms.",
-        icon: "FaMobileAlt"
-    },
-    {
-        id: 3,
-        title: "UI/UX Design",
-        description: "Crafting intuitive and engaging user interfaces and experiences.",
-        icon: "FaPalette"
-    },
-    {
-        id: 4,
-        title: "Digital Marketing",
-        description: "Implementing effective marketing strategies to boost your online presence.",
-        icon: "FaChartLine"
-    },
-    {
-        id: 5,
-        title: "SEO Optimization",
-        description: "Improving your website's visibility on search engines to attract more visitors.",
-        icon: "FaSearch"
-    },
-    {
-        id: 6,
-        title: "Content Creation",
-        description: "Producing high-quality content to engage and inform your audience.",
-        icon: "FaPenNib"
-    },
-    {
-        id: 7,
-        title: "E-commerce Solutions",
-        description: "Developing custom e-commerce platforms to grow your online business.",
-        icon: "FaShoppingCart"
-    },
-    {
-        id: 8,
-        title: "Cloud Services",
-        description: "Providing scalable cloud solutions to enhance your business operations.",
-        icon: "FaCloud"
-    },
-    {
-        id: 9,
-        title: "Cybersecurity",
-        description: "Protecting your digital assets with advanced security measures.",
-        icon: "FaShieldAlt"
-    },
-    {
-        id: 10,
-        title: "IT Consulting",
-        description: "Offering expert advice to optimize your IT infrastructure and processes.",
-        icon: "FaLightbulb"
-    },
-    {
-        id: 11,
-        title: "Blockchain Development",
-        description: "Creating secure and transparent blockchain solutions for your business.",
-        icon: "FaLock"
-    },
-    {
-        id: 12,
-        title: "Artificial Intelligence",
-        description: "Leveraging AI technologies to drive innovation and efficiency.",
-        icon: "FaRobot"
-    }
-];
+import useAxiosNormal from '../../hook/useAxiosNormal';
 
 
 const OurServices = () => {
+    const queryClient = useQueryClient()
+    const axiosNormal = useAxiosNormal();
+    const getService = async () => {
+        const res = await axiosNormal.get('/service');
+        return res.data;
+    };
+    const { data: servicesData, isLoading, error } = useQuery({
+        queryKey: ['service'],
+        queryFn: getService,
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error fetching carousel data: {error.message}</div>;
+    }
     return (
         <div className="w-11/12 container mx-auto">
             <div className="flex flex-col justify-center items-center mb-6">
