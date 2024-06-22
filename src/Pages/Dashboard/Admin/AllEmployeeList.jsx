@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import useRole from '../../../hook/useRole';
+import Loading from '../../../components/Loading';
 
 // Fetch verified employees function
 const fetchVerifiedEmployees = async () => {
@@ -24,9 +25,6 @@ const deleteEmployee = async (id) => {
 };
 
 const AllEmployeeList = () => {
-    // const role = useRole()
-    // console.log('From All Employee List', role);
-
     const queryClient = useQueryClient();
 
     // useQuery hook to fetch verified employees
@@ -46,13 +44,13 @@ const AllEmployeeList = () => {
     });
 
     // useMutation hook to delete employee
-    const deleteMutation = useMutation({
-        mutationFn: deleteEmployee,
-        onSuccess: () => {
-            queryClient.invalidateQueries(['verifiedEmployees']);
-            toast.success('Employee deleted successfully!');
-        },
-    });
+    // const deleteMutation = useMutation({
+    //     mutationFn: deleteEmployee,
+    //     onSuccess: () => {
+    //         queryClient.invalidateQueries(['verifiedEmployees']);
+    //         toast.success('Employee deleted successfully!');
+    //     },
+    // });
 
     // Handle role update
     const handleRoleUpdate = (id, newRole) => {
@@ -60,12 +58,12 @@ const AllEmployeeList = () => {
     };
 
     // Handle employee deletion
-    const handleDelete = (id) => {
-        deleteMutation.mutate(id);
-    };
+    // const handleDelete = (id) => {
+    //     deleteMutation.mutate(id);
+    // };
 
     // Loading and error states
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading />;
     if (error) return <div>Error fetching employees: {error.message}</div>;
 
 
@@ -141,9 +139,9 @@ const AllEmployeeList = () => {
                                                             {employee.role === 'employee' ? 'Promoted to HR' : 'Promotion Completed'}
                                                         </button>
 
-                                                        <button className='bg-red-500 px-5 rounded-full hover:bg-red-800 hover:text-white hover:shadow-md text-red-100 hover:shadow-black/20 py-0.5' onClick={() => handleDelete(employee)}>Fire</button>
+                                                        <button className='bg-red-500 px-5 rounded-full hover:bg-red-800 hover:text-white hover:shadow-md text-red-100 hover:shadow-black/20 py-0.5' onClick={'() => handleDelete(employee)'}>Fire</button>
 
-                                                        <Link className='bg-green-500 px-3 rounded-full text-white hover:bg-green-800  hover:text-white hover:shadow-md hover:shadow-black/80 flex items-center py-0.5' to={`/employee/${employee._id}`}>
+                                                        <Link className='bg-green-500 px-3 rounded-full text-white hover:bg-green-800  hover:text-white hover:shadow-md hover:shadow-black/80 flex items-center py-0.5' to={`/dashboard/employee/${employee._id}`}>
 
                                                             <BiEdit />
 

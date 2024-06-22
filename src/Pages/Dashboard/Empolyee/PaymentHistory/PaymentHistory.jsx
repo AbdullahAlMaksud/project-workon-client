@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import useAxiosNormal from '../../../../hook/useAxiosNormal';
+import Loading from '../../../../components/Loading';
 
 // const fetchPaymentHistory = async () => {
 //     const response = await axios.get('http://localhost:5000/payment-history');
@@ -27,7 +28,7 @@ const PaymentHistory = () => {
     //     queryFn: fetchPaymentHistory,
     // });
 
-    // if (isLoading) return <div>Loading...</div>;
+    // if (isLoading) return <Loading />;
     // if (error) return <div>Error fetching payment history: {error.message}</div>;
 
     return (

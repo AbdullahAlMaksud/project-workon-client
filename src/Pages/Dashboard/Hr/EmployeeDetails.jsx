@@ -3,6 +3,7 @@
 // import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import Loading from '../../../components/Loading';
 
 const EmployeeDetails = () => {
 
@@ -29,7 +30,7 @@ const EmployeeDetails = () => {
     //     fetchEmployeeDetails();
     // }, [id]);
 
-    // if (loading) return <div>Loading...</div>;
+    // if (loading) return <Loading/>;
     // if (error) return <div>An error occurred: {error}</div>;
 
     // const paymentData = payments.map((payment) => ({

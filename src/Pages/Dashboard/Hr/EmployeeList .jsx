@@ -4,6 +4,7 @@ import axios from 'axios';
 import PaymentModal from './PaymentModal';
 import { Link } from 'react-router-dom';
 import useAxiosNormal from '../../../hook/useAxiosNormal';
+import Loading from '../../../components/Loading';
 
 
 const EmployeeList = () => {
@@ -51,7 +52,7 @@ const EmployeeList = () => {
         }
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading />;
     if (error) return <div>An error occurred: {error}</div>;
 
 

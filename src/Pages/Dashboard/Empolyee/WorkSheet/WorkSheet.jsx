@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import TaskForm from './TaskForm';
 import TaskTable from './TaskTable';
 import toast from 'react-hot-toast';
+import Loading from '../../../../components/Loading';
 
 // Fetch tasks function
 const fetchTasks = async () => {
@@ -41,7 +42,7 @@ const WorkSheet = () => {
     };
 
     // Loading and error states
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading />;
     if (error) return <div>Error fetching tasks: {error.message}</div>;
 
     return (

@@ -1,9 +1,23 @@
+import { useEffect, useState } from "react";
 import FeatureSection from "./FeatureSection";
 import HeroSection from "./HeroSection";
 import OurServices from "./OurServices";
 import TestimonialSection from "./TestimonialSection";
 
 const Home = () => {
+
+    const [email, setEmail] = useState(null);
+    const handleChange = e => {
+        e.preventDefault()
+        const form = e.target;
+        const email = form.value;
+        // console.log(email)
+        setEmail(email)
+    }
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        console.log(email)
+    }
     return (
         <div>
             <HeroSection />
@@ -29,13 +43,14 @@ const Home = () => {
                     <form>
                         <div className="flex flex-col p-1.5 overflow-hidden border rounded dark:border-red-600 lg:flex-row dark:focus-within:border-red-300 focus-within:ring focus-within:ring-opacity-40 focus-within:border-red-400 focus-within:ring-red-300">
                             <input
+                                onKeyUp={handleChange}
                                 className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none dark:bg-gray-800 dark:placeholder-gray-400 focus:placeholder-transparent dark:focus:placeholder-transparent"
                                 type="text"
                                 name="email"
                                 placeholder="Enter your email"
                                 aria-label="Enter your email"
                             />
-                            <button className="px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-red-700 rounded hover:bg-red-600 focus:bg-red-600 focus:outline-none">
+                            <button onClick={handleSubscribe} className="px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-red-700 rounded hover:bg-red-600 focus:bg-red-600 focus:outline-none">
                                 subscribe
                             </button>
                         </div>

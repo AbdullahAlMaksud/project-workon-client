@@ -20,7 +20,7 @@ const TaskForm = ({ onSubmit }) => {
             return;
         }
         setError('');
-        onSubmit({ task, hoursWorked, date });
+        onSubmit({ task, hoursWorked, date, userName, userEmail });
         setTask('');
         setHoursWorked(0);
         setDate(new Date());

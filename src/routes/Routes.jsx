@@ -15,6 +15,7 @@ import EmployeeDetails from "../Pages/Dashboard/Hr/EmployeeDetails";
 import Progress from "../Pages/Dashboard/Hr/Progress";
 import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 import Profile from "../authentication/Profile";
+import EditEmployee from "../Pages/Dashboard/Admin/EditEmployee";
 // import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 
 
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
           {
             path: `/dashboard/all-employee-list`,
             element: <AllEmployeeList />
+          },
+          {
+            path: `/dashboard/employee/:id`,
+            element: <EditEmployee />
           },
 
         ]

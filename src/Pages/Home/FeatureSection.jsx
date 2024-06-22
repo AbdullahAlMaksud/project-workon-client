@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Icons from 'react-icons/md';
 import useAxiosNormal from '../../hook/useAxiosNormal';
+import Loading from '../../components/Loading';
 
 
 const FeatureSection = () => {
@@ -16,7 +17,7 @@ const FeatureSection = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
     if (error) {
         return <div>Error fetching carousel data: {error.message}</div>;

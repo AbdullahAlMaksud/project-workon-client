@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import useAxiosNormal from '../../hook/useAxiosNormal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import Loading from '../../components/Loading';
 
 const TestimonialSection = () => {
     const queryClient = useQueryClient()
@@ -21,12 +22,11 @@ const TestimonialSection = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
     if (error) {
         return <div>Error fetching carousel data: {error.message}</div>;
     }
-
 
     return (
         <div>

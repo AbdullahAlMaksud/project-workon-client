@@ -45,8 +45,6 @@ const AdminHome = () => {
                         <h2 className="text-xl decoration-wavy font-poppins text-center">All Employee List</h2>
                     </div>
                 </Link>
-
-
             </div>
         </div>
     );
