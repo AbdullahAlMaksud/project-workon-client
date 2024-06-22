@@ -163,9 +163,13 @@ const Progress = () => {
                                                 <td>{record.task}</td>
                                                 <td>{new Date(record.date).toLocaleDateString()}</td>
                                                 <td>{record.hoursWorked} Hours</td>
-                                                <td>{record.status}</td>
                                                 <td>
-                                                    <button className='bg-orange-500 px-3 py-1 rounded hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/20 min-w-28' onClick={() => handleUpdate(record._id, { status: 'completed' })}>
+                                                    <p className={record.status === 'completed' ? 'bg-green-100 text-green-600 px-3 py-0.5 capitalize rounded-full' : 'bg-red-100 text-red-600 px-3 py-0.5 capitalize rounded-full'}>{record.status || 'pending'}</p>
+                                                </td>
+                                                <td>
+                                                    <button className='bg-orange-500 px-3 py-1 rounded-sm hover:bg-orange-800 hover:text-white hover:shadow-md hover:shadow-black/40 min-w-28 disabled:hover:bg-gray-200 disabled:bg-gray-200 disabled:hover:text-black disabled:hover:shadow-none ' onClick={() => handleUpdate(record._id, { status: 'completed' })}
+                                                        disabled={record.status === 'completed'}
+                                                    >
                                                         Mark as Completed
                                                     </button>
                                                 </td>

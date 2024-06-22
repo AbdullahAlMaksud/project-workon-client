@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
-import useRole from '../../../hook/useRole';
+// import useRole from '../../../hook/useRole';
 import Loading from '../../../components/Loading';
 
 // Fetch verified employees function
@@ -128,13 +128,13 @@ const AllEmployeeList = () => {
                                             <tr className='text-center text-sm h-9' key={employee._id}>
                                                 <td className='min-w-40'>{employee.name}</td>
                                                 <td>{employee.email}</td>
-                                                <td className={employee.role === 'employee' ? 'capitalize' : 'uppercase'}>
+                                                <td className={employee.role === 'employee' ? 'capitalize px-2' : 'uppercase'}>
                                                     {employee.role}
                                                 </td>
                                                 <td className='capitalize'>{employee.designation}</td>
                                                 <td>{employee.salary}</td>
                                                 <td>
-                                                    <div className='flex justify-end mx-2 gap-1'>
+                                                    <div className='flex justify-end mx-2 gap-1 min-w-72'>
                                                         <button className={employee.role === 'employee' ? `bg-blue-500 px-5 rounded-full text-white hover:shadow-md hover:shadow-black/20 py-0.5` : `hidden`} onClick={() => handleRoleUpdate(employee._id, 'hr')}>
                                                             {employee.role === 'employee' ? 'Promoted to HR' : 'Promotion Completed'}
                                                         </button>

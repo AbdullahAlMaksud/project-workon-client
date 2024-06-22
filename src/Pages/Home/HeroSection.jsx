@@ -33,7 +33,7 @@ const HeroSection = () => {
 
     return (
 
-        <div className=' bg-[url(wave.svg)] bg-cover  -mt-16  pt-16'>
+        <div className=' bg-[url(https://i.postimg.cc/g23s1Cwc/wave-dsds.png)] bg-cover  -mt-16  pt-16'>
             <div >
                 <Swiper
                     grabCursor={true}

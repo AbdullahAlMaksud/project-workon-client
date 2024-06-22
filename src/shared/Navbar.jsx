@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className='fixed z-50 shadow-sm w-full dark:bg-slate-800/50 bg-red-800 min-h-16 flex items-center justify-center'>
             <section className='w-11/12 container mx-auto'>
                 <div className='w-full flex justify-between md:grid md:grid-cols-3'>
-                    <Link to={'/'} className='col-span-1 w-fit relative hover:bg-gray-300 px-2 py-1 rounded-lg active:scale-95'>
+                    <Link to={'/'} className='col-span-1 w-fit relative hover:bg-red-700 px-2 py-1 rounded-lg active:scale-95'>
                         <h1 className='text-3xl text-white font-black w-fit  font-raleway'><span className='text-black'>W</span>ork<span className='text-black'>on</span></h1>
                         <GiSeatedMouse className='absolute -right-2 -top-1 text-white' />
                     </Link>
@@ -127,12 +127,12 @@ const Navbar = () => {
                     >
                         Contact Us
                     </NavLink>
-                    <NavLink
-                        onClick={logOut()}
-                        className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    <div
+                        onClick={logOut}
+                        className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white hover:cursor-pointer"
                     >
                         Sign Out
-                    </NavLink>
+                    </div>
                 </div>
             )}
         </div>
