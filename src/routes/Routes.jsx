@@ -16,6 +16,7 @@ import Progress from "../Pages/Dashboard/Hr/Progress";
 import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 import Profile from "../authentication/Profile";
 import EditEmployee from "../Pages/Dashboard/Admin/EditEmployee";
+import PrivateRoute from "../private/PrivateRoute";
 // import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 
 
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-profile',
-        element: <Profile />
+        element: <PrivateRoute><Profile /></PrivateRoute>
       },
       {
         path: '/authentication',
@@ -54,40 +55,40 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <DashboardLayout />,
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
           {
             path: '/dashboard',
-            element: <Display />
+            element: <PrivateRoute><Display /></PrivateRoute>
           },
           {
             path: '/dashboard/work-sheet',
-            element: <WorkSheet />
+            element: <PrivateRoute><WorkSheet /></PrivateRoute>
           },
           {
             path: '/dashboard/payment-history',
-            element: <PaymentHistory />
+            element: <PrivateRoute><PaymentHistory /></PrivateRoute>
           },
           {
             path: '/dashboard/employee-list',
-            element: <EmployeeList />
+            element: <PrivateRoute><EmployeeList /></PrivateRoute>
           },
           {
             path: `/dashboard/details/:id`,
-            element: <EmployeeDetails />
+            element: <PrivateRoute><EmployeeDetails /></PrivateRoute>
           },
           {
             path: `/dashboard/progress`,
-            element: <Progress />
+            element: <PrivateRoute><Progress /></PrivateRoute>
           },
 
           {
             path: `/dashboard/all-employee-list`,
-            element: <AllEmployeeList />
+            element: <PrivateRoute><AllEmployeeList /></PrivateRoute>
           },
           {
             path: `/dashboard/employee/:id`,
-            element: <EditEmployee />
+            element: <PrivateRoute><EditEmployee /></PrivateRoute>
           },
 
         ]
