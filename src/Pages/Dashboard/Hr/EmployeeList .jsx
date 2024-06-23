@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
-// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
 import PaymentModal from './PaymentModal';
 import { Link } from 'react-router-dom';
 import useAxiosNormal from '../../../hook/useAxiosNormal';
 import Loading from '../../../components/Loading';
+import toast from 'react-hot-toast';
+import { TbMoodSadFilled } from 'react-icons/tb';
+import DataError from '../../../components/DataError';
 
 
 const EmployeeList = () => {
     const axiosNormal = useAxiosNormal();
+
     const [employees, setEmployees] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -42,18 +44,20 @@ const EmployeeList = () => {
         }
     };
 
-    const handlePay = async (userId, amount, month, year) => {
+    const handlePay = async (userId, amount, month, year, userName, userEmail, status) => {
         try {
-            await axios.post(`/users/pay`, { userId, amount, month, year });
+            await axiosNormal.post(`/users/pay`, { userId, amount, month, year, userName, userEmail, status });
             setSelectedEmployee(null);
-            fetchEmployees(); // Refetch employees after payment
+            fetchEmployees();
+            toast.success(`Payment to ${userName}, is Successfull!`)
         } catch (err) {
             setError(err.message);
+            toast.error('Do not pay twice a month!')
         }
     };
 
     if (isLoading) return <Loading />;
-    if (error) return <div>An error occurred: {error}</div>;
+    if (error) return <DataError error={error} />
 
 
     return (

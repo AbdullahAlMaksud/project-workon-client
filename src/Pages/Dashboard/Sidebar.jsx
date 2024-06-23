@@ -1,4 +1,3 @@
-import { GiSeatedMouse } from "react-icons/gi";
 import { TbSmartHome } from "react-icons/tb";
 import { VscSignOut } from "react-icons/vsc";
 import { Link } from "react-router-dom";

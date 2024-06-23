@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useAxiosNormal from '../../../../hook/useAxiosNormal';
 import Loading from '../../../../components/Loading';
 import useAuth from '../../../../hook/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { Helmet } from 'react-helmet-async';
+import TitleText from '../../../../components/TitleText';
 
 const PaymentHistory = () => {
     const axiosNormal = useAxiosNormal();
@@ -31,11 +31,16 @@ const PaymentHistory = () => {
     if (isLoading) return <Loading />;
     if (error) return <div>Error fetching payment history: {error.response?.data?.message || error.message}</div>;
 
+    // Sorting payments by month and year in descending order
+    const sortedPayments = payments.sort((a, b) => {
+        const dateA = new Date(`${a.month} 1, ${a.year}`);
+        const dateB = new Date(`${b.month} 1, ${b.year}`);
+        return dateB - dateA;
+    });
+
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
-            <Helmet>
-                <title>WorkOn | My Payment History ({email})</title>
-            </Helmet>
+            <TitleText props={`My Payment History (${email})`}></TitleText>
             <h1 className='text-center font-semibold font-poppins text-red-800 text-4xl py-10'>My Payment History</h1>
 
             <section className="container w-11/12 mx-auto">
@@ -63,7 +68,7 @@ const PaymentHistory = () => {
                                                 scope="col"
                                                 className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
                                             >
-                                                Ammount
+                                                Amount
                                             </th>
                                             <th
                                                 scope="col"
@@ -75,23 +80,21 @@ const PaymentHistory = () => {
                                         </tr>
                                     </thead>
 
-
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-
-                                        {payments.map((task) => (
+                                        {sortedPayments.map((task) => (
                                             <tr className='text-center text-sm h-9' key={task._id}>
                                                 <td className='min-w-40'>{task.userName}</td>
-                                                <td>{task.month}</td>
+                                                <td>{task.month} {task.year}</td>
                                                 <td>
                                                     {task.amount} BDT
                                                 </td>
                                                 <td>
-                                                    {task.status}
+                                                    <span className={task.status === 'paid' ? 'capitalize px-4 py-0.5 rounded-full bg-green-100 text-green-700' : 'capitalize px-4 py-0.5 rounded-full bg-orange-100 text-orange-700'}>
+                                                        {task.status}
+                                                    </span>
                                                 </td>
                                             </tr>
                                         ))}
-
-
                                     </tbody>
                                 </table>
 
@@ -186,7 +189,6 @@ const PaymentHistory = () => {
                     </a>
                 </div>
             </section>
-
         </div>
     );
 };
