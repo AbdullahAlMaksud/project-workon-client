@@ -1,9 +1,7 @@
-import React from 'react';
 import useAuth from '../hook/useAuth';
 import { Helmet } from 'react-helmet-async';
 
 const Profile = () => {
-
     const { user } = useAuth();
     console.log(user)
 

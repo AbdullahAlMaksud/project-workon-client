@@ -26,29 +26,24 @@ const SignUp = () => {
     const location = useLocation()
     const from = location.state || '/'
 
-
     const showPassword = (e) => {
         setIsChecked(e.target.checked);
     };
-
     const handleGetPhoto = async (e) => {
         e.preventDefault();
 
         const photoView = URL.createObjectURL(e.target.files[0]);
         setPhoto(photoView)
-        console.log(photoView)
-
+        // console.log(photoView)
         const photo = e.target.files[0].name;
         setPhotoName(photo)
-        console.log(photoName)
-
+        // console.log(photoName)
         const photoFileRaw = e.target.files[0];
         //ImgBB
         const formData = new FormData();
         formData.append('image', photoFileRaw);
-        console.log(photoFileRaw)
-        console.log(formData)
-
+        // console.log(photoFileRaw)
+        // console.log(formData)
         try {
             const { data } = await axios.post(
                 `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData

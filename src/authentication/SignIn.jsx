@@ -27,7 +27,7 @@ const SignIn = () => {
     const handleGoogleSignUp = async () => {
         try {
             const result = await signInWithGoogole();
-            console.log(result.user)
+            // console.log(result.user)
             if (result.user) {
                 const user = result.user;
                 const name = user.displayName;
@@ -90,11 +90,9 @@ const SignIn = () => {
                             'url("https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")'
                     }}
                 ></div>
-
                 <div className="flex items-center w-full lg:max-w-3xl lg:p-8 mx-auto  lg:w-3/5">
                     <div className="w-full">
                         <div className="flex w-full max-w-2xl mx-auto overflow-hidden   lg:max-w-4xl">
-
                             <form onSubmit={handleLogin} className="w-full px-6 py-8">
                                 <div className="flex justify-center mx-auto">
                                     <Link to={'/'} className='relative hover:bg-gray-100/20 dark:hover:bg-gray-800/70 text-black px-2 py-1 rounded-lg active:scale-95'>

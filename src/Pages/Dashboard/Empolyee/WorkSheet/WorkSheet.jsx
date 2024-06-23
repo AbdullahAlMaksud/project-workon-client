@@ -15,7 +15,7 @@ const WorkSheet = () => {
 
     const fetchTasks = async () => {
         if (!email) return []; // Return an empty array if email is not available
-        const res = await axios.get(`http://localhost:5000/tasks/${email}`);
+        const res = await axios.get(`${import.meta.env.VITE_SERVER}/tasks/${email}`);
         return res.data;
     };
 
@@ -27,7 +27,7 @@ const WorkSheet = () => {
 
     const addTaskMutation = useMutation({
         mutationFn: async (newTask) => {
-            await axios.post('http://localhost:5000/tasks', newTask);
+            await axios.post(`${import.meta.env.VITE_SERVER}/tasks`, newTask);
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['tasks', email]);

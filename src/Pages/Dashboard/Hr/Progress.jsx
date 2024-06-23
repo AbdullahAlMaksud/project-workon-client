@@ -8,7 +8,7 @@ import Loading from '../../../components/Loading';
 const fetchWorkRecords = async ({ queryKey }) => {
     const [, filters] = queryKey;
     try {
-        const res = await axios.get('http://localhost:5000/work-records', { params: filters });
+        const res = await axios.get(`${import.meta.env.VITE_SERVER}/work-records`, { params: filters });
         return res.data;
     } catch (error) {
         console.error('Error fetching work records:', error);
@@ -19,7 +19,7 @@ const fetchWorkRecords = async ({ queryKey }) => {
 // Fetch employees function
 const fetchEmployees = async () => {
     try {
-        const res = await axios.get('http://localhost:5000/employees');
+        const res = await axios.get(`${import.meta.env.VITE_SERVER}/employees`);
         return res.data;
     } catch (error) {
         console.error('Error fetching employees:', error);
@@ -29,7 +29,7 @@ const fetchEmployees = async () => {
 
 // Update work record function
 const updateWorkRecord = async ({ id, updates }) => {
-    const res = await axios.patch(`http://localhost:5000/work-records/${id}`, updates);
+    const res = await axios.patch(`${import.meta.env.VITE_SERVER}/work-records/${id}`, updates);
     return res.data;
 };
 

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-// import useAxiosNormal from './useAxiosNormal';
 import useAuth from './useAuth';
 import useAxiosNormal from './useAxiosNormal';
+import Loading from '../components/Loading';
 
 const fetchUserRole = async ({ queryKey }) => {
     const [, email, axiosNormal] = queryKey;
@@ -16,7 +16,6 @@ const useRole = () => {
     const email = user?.email;
     const axiosNormal = useAxiosNormal();
     const queryClient = useQueryClient();
-
     const { data: role, error, isLoading } = useQuery({
         queryKey: ['userRole', email, axiosNormal],
         queryFn: fetchUserRole,
@@ -25,16 +24,8 @@ const useRole = () => {
             console.error('Error fetching user role:', error);
         },
     });
-
-    // Use queryClient for any additional query-related operations
-    // For example, you might want to prefetch some other queries or invalidate some queries
-    // queryClient.prefetchQuery('someOtherQueryKey', someOtherQueryFn);
-    // queryClient.invalidateQueries('someOtherQueryKey');
-
-    // You can handle loading and error states if needed
-    if (isLoading) return null; // or some loading component
-    if (error) return 'An error occurred'; // or an error component
-
+    if (isLoading) return <Loading />
+    if (error) return 'An error occurred';
     return role;
 };
 

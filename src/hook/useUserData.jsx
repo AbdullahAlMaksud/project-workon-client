@@ -1,5 +1,3 @@
-// useUserData.js
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -7,13 +5,13 @@ import toast from 'react-hot-toast';
 // Function to fetch user data by ID
 const fetchUserData = async ({ queryKey }) => {
     const [_, id] = queryKey;
-    const response = await axios.get(`http://localhost:5000/all-employees-list/${id}`);
+    const response = await axios.get(`${import.meta.env.VITE_SERVER}/all-employees-list/${id}`);
     return response.data;
 };
 
 // Function to update user data by ID
 const updateUserData = async ({ id, data }) => {
-    const response = await axios.patch(`http://localhost:5000/employee-update/${id}`, data);
+    const response = await axios.patch(`${import.meta.env.VITE_SERVER}/employee-update/${id}`, data);
     return response.data;
 };
 

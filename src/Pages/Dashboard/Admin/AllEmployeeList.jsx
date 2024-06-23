@@ -3,28 +3,23 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
-// import useRole from '../../../hook/useRole';
 import Loading from '../../../components/Loading';
+import { useState } from 'react';
 
 // Fetch verified employees function
 const fetchVerifiedEmployees = async () => {
-    const res = await axios.get('http://localhost:5000/all-employee-list');
+    const res = await axios.get(`${import.meta.env.VITE_SERVER}/all-employee-list`);
     return res.data;
 };
 
 // Update employee role function
 const updateEmployeeRole = async ({ id, newRole }) => {
-    const res = await axios.patch(`http://localhost:5000/users/${id}/role`, { newRole });
-    return res.data;
-};
-
-// Delete employee function
-const deleteEmployee = async (id) => {
-    const res = await axios.delete(`http://localhost:5000/users/${id}`);
+    const res = await axios.patch(`${import.meta.env.VITE_SERVER}/users/${id}/role`, { newRole });
     return res.data;
 };
 
 const AllEmployeeList = () => {
+    const [isFired, setIsFried] = useState(false);
     const queryClient = useQueryClient();
 
     // useQuery hook to fetch verified employees
@@ -32,8 +27,6 @@ const AllEmployeeList = () => {
         queryKey: ['verifiedEmployees'],
         queryFn: fetchVerifiedEmployees,
     });
-    console.log(employees)
-
     // useMutation hook to update employee role
     const updateRoleMutation = useMutation({
         mutationFn: updateEmployeeRole,
@@ -42,30 +35,18 @@ const AllEmployeeList = () => {
             toast.success('Employee role updated successfully!');
         },
     });
-
-    // useMutation hook to delete employee
-    // const deleteMutation = useMutation({
-    //     mutationFn: deleteEmployee,
-    //     onSuccess: () => {
-    //         queryClient.invalidateQueries(['verifiedEmployees']);
-    //         toast.success('Employee deleted successfully!');
-    //     },
-    // });
-
     // Handle role update
     const handleRoleUpdate = (id, newRole) => {
         updateRoleMutation.mutate({ id, newRole });
     };
 
-    // Handle employee deletion
-    // const handleDelete = (id) => {
-    //     deleteMutation.mutate(id);
-    // };
+    const handleDelete = (id) => {
+        setIsFried(!isFired);
+        console.log(id);
+    };
 
-    // Loading and error states
     if (isLoading) return <Loading />;
     if (error) return <div>Error fetching employees: {error.message}</div>;
-
 
     return (
         <div className="dark:text-white container mx-auto w-11/12 my-12 lg:my-5 h-full">
@@ -139,28 +120,16 @@ const AllEmployeeList = () => {
                                                             {employee.role === 'employee' ? 'Promoted to HR' : 'Promotion Completed'}
                                                         </button>
 
-                                                        <button className='bg-red-500 px-5 rounded-full hover:bg-red-800 hover:text-white hover:shadow-md text-red-100 hover:shadow-black/20 py-0.5' onClick={'() => handleDelete(employee)'}>Fire</button>
-
+                                                        <button className='bg-red-500 px-5 rounded-full hover:bg-red-800 hover:text-white hover:shadow-md text-red-100 hover:shadow-black/20 py-0.5' onClick={() => handleDelete(employee._id)}>{isFired === true ? 'Fired' : 'Fire'}</button>
                                                         <Link className='bg-green-500 px-3 rounded-full text-white hover:bg-green-800  hover:text-white hover:shadow-md hover:shadow-black/80 flex items-center py-0.5' to={`/dashboard/employee/${employee._id}`}>
-
                                                             <BiEdit />
-
                                                         </Link>
                                                     </div>
                                                 </td>
                                             </tr>
                                         ))}
-
-
                                     </tbody>
                                 </table>
-                                {/* {selectedEmployee && (
-                                    <PaymentModal
-                                        employee={selectedEmployee}
-                                        onClose={() => setSelectedEmployee(null)}
-                                        onPay={handlePay}
-                                    />
-                                )} */}
                             </div>
                         </div>
                     </div>

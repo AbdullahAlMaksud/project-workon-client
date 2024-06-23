@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const axiosNormal = axios.create({
-    baseURL: 'http://localhost:5000/'
+    baseURL: `${import.meta.env.VITE_SERVER}/`
 })
 const useAxiosNormal = () => {
     return axiosNormal;
 };
 
 export default useAxiosNormal;
+

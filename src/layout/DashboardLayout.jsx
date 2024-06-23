@@ -8,6 +8,7 @@ import { MdFormatIndentIncrease, MdFormatIndentDecrease } from "react-icons/md";
 import Sidebar from '../Pages/Dashboard/Sidebar';
 import useAxiosNormal from '../hook/useAxiosNormal';
 import useAuth from '../hook/useAuth';
+import TitleText from '../components/TitleText';
 
 const DashboardLayout = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -98,6 +99,7 @@ const DashboardLayout = () => {
 
     return (
         <div className='bg-white dark:bg-slate-950'>
+            <TitleText props={'Dashboard'} />
             <section>
                 <button onClick={handleOpen} className={isOpen ? 'px-1.5 py-1.5 rounded-full shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1  text-white top-16 mt-3.5 left-4 outline-white hover:shadow-none active:scale-95  duration-500 ease-out' : 'px-3 py-1 rounded-md shadow-sm shadow-black/50 absolute z-10 bg-red-700 border-white border-2 outline-dashed outline-1 outline-red-600 text-white top-20 left-3 hover:shadow-none active:scale-95  duration-500 ease-out animate-pulse'}>
                     {
